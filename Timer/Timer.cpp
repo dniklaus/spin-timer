@@ -39,6 +39,11 @@ void Timer::attachAdapter(TimerAdapter* adapter)
   m_adapter = adapter;
 }
 
+TimerAdapter* Timer::adapter()
+{
+  return m_adapter;
+}
+
 Timer* Timer::next()
 {
   return m_next;

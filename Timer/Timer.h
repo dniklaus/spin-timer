@@ -43,6 +43,12 @@ public:
   void attachAdapter(TimerAdapter* adapter);
 
   /**
+   * Timer Adapter accessor method.
+   * @return TimerAdapter objec pointer or 0 if no adapter is attached.
+   */
+  TimerAdapter* adapter();
+
+  /**
    * Get next Timer object pointer out of the linked list containing timers.
    * @return Timer object pointer or 0 if current object is the trailing list element.
    */
