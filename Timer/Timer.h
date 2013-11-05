@@ -14,10 +14,19 @@ class TimerAdapter;
  * Universal Timer.
  *
  * Features:
- * - configurable to be either recurring (timer automatically restarts after the interval) or non-recurring (timer stops after timeout period is over)
- * - timer interval/timeout time configurable
- * - attaches automatically to @see TimerContext, which periodically updates the timer state and performs the timer expire evaluation
- * - based on millis() function (number of milliseconds since the Arduino board began running the current program), handles unsigned long int overflows correctly
+ * - intended use: non-busy wait for time spans in a range of 10 to hundreds of milliseconds, such as:
+ *   - debouncing push-button and switch signals
+ *   - blink some LEDs
+ *   - schedule some sequences where time accuracy is not crucial
+ * - configurable to be either
+ *   - recurring (timer automatically restarts after the interval) or
+ *   - non-recurring (timer stops after timeout period is over)
+ * - timer interval/timeout time configurable ([ms])
+ * - automatically attaches to @see TimerContext, which periodically updates
+ *   the timer state and performs the timer expire evaluation
+ * - based on millis() function (number of milliseconds since the Arduino board began
+ *   running the current program), handles unsigned long int overflows correctly
+ *   (occurring around every 50 hours)
  */
 class Timer
 {
@@ -37,14 +46,14 @@ public:
   virtual ~Timer();
 
   /**
-   * Attach specific Timer Adapter, acts as dependency injector.
+   * Attach specific Timer Adapter, acts as dependency injection. @see TimerAdapter interface.
    * @param adapter Specific Timer Adapter
    */
   void attachAdapter(TimerAdapter* adapter);
 
   /**
    * Timer Adapter accessor method.
-   * @return TimerAdapter objec pointer or 0 if no adapter is attached.
+   * @return TimerAdapter object pointer or 0 if no adapter is attached.
    */
   TimerAdapter* adapter();
 
@@ -68,29 +77,50 @@ public:
 
   /**
    * Start or restart the timer.
-   * If the timer has been cancelled before, this will have no effect -
-   * in order to start the timer again, the startTimer() method with specific time value parameter has to be used instead.
+   * If the timer has been canceled before, this will have no effect -
+   * in order to start the timer again, the startTimer(timeMillis) method with specific time value parameter has to be used instead.
    */
   void startTimer();
 
   /**
    * Cancel the timer and stop. No time expired event will be sent out after the specified time would have been elapsed.
+   * Subsequent isTimerExpired() queries will return false.
    */
   void cancelTimer();
 
+  /**
+   * Poll method to get the timer expire status, recalculates whether the timer has expired before.
+   * This method could be used in a pure polling mode, where tick() has not to get called
+   * (by the @see TimerContext::handleTick() method), but also a mixed operation in combination with
+   * calling tick() periodically is possible.
+   * Subsequent isTimerExpired() queries will return false after the first one returned true.
+   * @return true if the timer has expired.
+   */
   bool isTimerExpired();
 
+  /**
+   * Kick the Timer.
+   * Recalculates whether the timer has expired.
+   */
   void tick();
 
-protected:
+private:
+  /**
+   * Internal tick method, evaluates the expired state.
+   */
   void internalTick();
+
+  /**
+   * Starts time interval measurement, calculates the expiration trigger time.
+   * Manages to avoid Arduino millis() overflow issues occurring around every 50 hours.
+   */
   void startInterval();
 
 private:
-  bool m_isRecurring;
-  bool m_isExpiredFlag;
-  unsigned long m_currentTimeMillis;
-  unsigned long m_triggerTimeMillis;
+  bool m_isRecurring; /// Timer mode flag, true: timer will automatically restart after expiration.
+  bool m_isExpiredFlag; /// Timer expiration flag.
+  unsigned long m_currentTimeMillis; /// interval time measurement base, updated every internalTick(), called either by tick() or by isTimerExpired()
+  unsigned long m_triggerTimeMillis; ///
   unsigned long m_triggerTimeMillisUpperLimit;
   unsigned long m_delayMillis;
   TimerAdapter* m_adapter;

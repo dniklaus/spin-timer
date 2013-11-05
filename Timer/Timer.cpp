@@ -71,6 +71,7 @@ void Timer::tick()
 void Timer::cancelTimer()
 {
   m_delayMillis = 0;
+  m_isExpiredFlag = false;
 }
 
 void Timer::startTimer(unsigned int timeMillis)
@@ -79,6 +80,10 @@ void Timer::startTimer(unsigned int timeMillis)
   if (m_delayMillis > 0)
   {
     startInterval();
+  }
+  else
+  {
+    cancelTimer();
   }
 }
 

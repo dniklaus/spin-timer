@@ -8,14 +8,20 @@
 #ifndef TIMERADAPTER_H_
 #define TIMERADAPTER_H_
 
-/*
- *
+/**
+ * Adapter Interface, will notify timeExpired() event.
+ * Implementations derived from this interface can be injected into a @see Timer object.
+ * The Timer then will call out the specific adapter's timeExpired() method.
  */
 class TimerAdapter
 {
 public:
   TimerAdapter();
   virtual ~TimerAdapter();
+
+  /**
+   * Time expired event. To be implemented by specific Timer Adapter class.
+   */
   virtual void timeExpired() = 0;
 
 private: // forbidden default functions

@@ -8,8 +8,11 @@
 #ifndef UPTIMEINFO_H_
 #define UPTIMEINFO_H_
 
-/*
- *
+/**
+ * Helper class to use the appropriate time base depending on platfrom.
+ * Supported platforms:
+ * - Arduino (AVR and SAM)
+ * - POSIX
  */
 class UptimeInfo
 {
