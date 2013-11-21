@@ -16,9 +16,15 @@
 class TimerAdapter
 {
 public:
-  TimerAdapter();
   virtual ~TimerAdapter();
 
+protected:
+  /**
+   * Constructor, protected since this is an Interface.
+   */
+  TimerAdapter();
+
+public:
   /**
    * Time expired event. To be implemented by specific Timer Adapter class.
    */
