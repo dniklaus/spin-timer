@@ -116,6 +116,10 @@ private:
    */
   void startInterval();
 
+public:
+  static const bool IS_NON_RECURRING;
+  static const bool IS_RECURRING;
+
 private:
   bool m_isRecurring; /// Timer mode flag, true: timer will automatically restart after expiration.
   bool m_isExpiredFlag; /// Timer expiration flag.

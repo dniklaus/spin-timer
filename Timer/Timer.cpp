@@ -11,6 +11,9 @@
 #include "TimerAdapter.h"
 #include "TimerContext.h"
 
+const bool Timer::IS_NON_RECURRING = false;
+const bool Timer::IS_RECURRING     = true;
+
 Timer::Timer(TimerAdapter* adapter, bool isRecurring, unsigned int timeMillis)
 : m_isRecurring(isRecurring)
 , m_isExpiredFlag(false)
