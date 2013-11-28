@@ -131,8 +131,8 @@ private:
   Timer* m_next;
 
 private: // forbidden default functions
-  Timer& operator = (const Timer& );  // assignment operator
-  Timer(const Timer& src);            // copy constructor
+  Timer& operator = (const Timer& src); // assignment operator
+  Timer(const Timer& src);              // copy constructor
 };
 
 #endif /* TIMER_H_ */

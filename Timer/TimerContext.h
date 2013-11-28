@@ -71,8 +71,8 @@ private:
   Timer* m_timer; /// Root node of single linked list containing the timers to be kicked.
 
 private: // forbidden default functions
-  TimerContext& operator = (const TimerContext& );  // assignment operator
-  TimerContext(const TimerContext& src);            // copy constructor
+  TimerContext& operator = (const TimerContext& src); // assignment operator
+  TimerContext(const TimerContext& src);              // copy constructor
 };
 
 #endif /* TIMERCONTEX_H_ */

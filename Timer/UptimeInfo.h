@@ -25,6 +25,10 @@ public:
    * @return Number of milliseconds since the program started.
    */
   static unsigned long tMillis();
+
+private: // forbidden functions
+  UptimeInfo& operator = (const UptimeInfo& src); // assignment operator
+  UptimeInfo(const UptimeInfo& src);              // copy constructor
 };
 
 #endif /* UPTIMEINFO_H_ */
