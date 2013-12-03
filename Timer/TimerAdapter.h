@@ -10,7 +10,7 @@
 
 /**
  * Adapter Interface, will notify timeExpired() event.
- * Implementations derived from this interface can be injected into a @see Timer object.
+ * Implementations derived from this interface can be injected into a Timer object.
  * The Timer then will call out the specific adapter's timeExpired() method.
  */
 class TimerAdapter

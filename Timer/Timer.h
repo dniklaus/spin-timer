@@ -22,8 +22,8 @@ class TimerAdapter;
  *   - recurring (timer automatically restarts after the interval) or
  *   - non-recurring (timer stops after timeout period is over)
  * - timer interval/timeout time configurable ([ms])
- * - automatically attaches to @see TimerContext, which periodically updates
- *   the timer state and performs the timer expire evaluation
+ * - automatically attaches to TimerContext's linked list of Timer objects. The TimerContext will
+ *   periodically update the timers' state and thus perform the timers' expire evaluation
  * - based on millis() function (number of milliseconds since the Arduino board began
  *   running the current program), handles unsigned long int overflows correctly
  *   (occurring around every 50 hours)
@@ -33,9 +33,9 @@ class Timer
 public:
   /**
    * Timer constructor.
-   * @param adapter Timer Adapter which allows to emit a timer expired event to any specific listener, default: 0 (no event will be sent)
-   * @param isRecurring, operation mode, true: recurring, false: non-recurring, default: false
-   * @param timeMillis timer interval/timeout time [ms], >0: timer starts automatically after creation, others: timer stopped after creation, default: 0
+   * @param adapter TimerAdapter, is able to emit a timer expired event to any specific listener, default: 0 (no event will be sent)
+   * @param isRecurring Operation mode, true: recurring, false: non-recurring, default: false
+   * @param timeMillis Timer interval/timeout time [ms], >0: timer starts automatically after creation, others: timer stopped after creation, default: 0
    */
   Timer(TimerAdapter* adapter = 0, bool isRecurring = false, unsigned int timeMillis = 0);
 
@@ -47,7 +47,7 @@ public:
 
   /**
    * Attach specific Timer Adapter, acts as dependency injection. @see TimerAdapter interface.
-   * @param adapter Specific Timer Adapter
+   * @param adapter Specific TimerAdapter
    */
   void attachAdapter(TimerAdapter* adapter);
 
@@ -71,7 +71,7 @@ public:
 
   /**
    * Start or restart the timer with a specific time out or interval time.
-   * @param Time out or interval time to be set for the timer [ms]; 0 will cancel the timer, @see cancelTimer().
+   * @param timeMillis Time out or interval time to be set for the timer [ms]; 0 will cancel the timer, @see cancelTimer().
    */
   void startTimer(unsigned int timeMillis);
 
@@ -91,7 +91,7 @@ public:
   /**
    * Poll method to get the timer expire status, recalculates whether the timer has expired before.
    * This method could be used in a pure polling mode, where tick() has not to get called
-   * (by the @see TimerContext::handleTick() method), but also a mixed operation in combination with
+   * (by the TimerContext::handleTick() method), but also a mixed operation in combination with
    * calling tick() periodically is possible.
    * Subsequent isTimerExpired() queries will return false after the first one returned true.
    * @return true if the timer has expired.
