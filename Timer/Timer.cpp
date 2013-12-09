@@ -82,6 +82,7 @@ void Timer::startTimer(unsigned int timeMillis)
   m_delayMillis = timeMillis;
   if (m_delayMillis > 0)
   {
+    m_currentTimeMillis = UptimeInfo::tMillis();
     startInterval();
   }
   else
@@ -94,13 +95,13 @@ void Timer::startTimer()
 {
   if (m_delayMillis > 0)
   {
+    m_currentTimeMillis = UptimeInfo::tMillis();
     startInterval();
   }
 }
 
 void Timer::startInterval()
 {
-  m_currentTimeMillis = UptimeInfo::tMillis();
   unsigned long deltaTime = 0xFFFFFFFF - m_currentTimeMillis;
   if (deltaTime < m_delayMillis)
   {
