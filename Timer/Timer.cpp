@@ -111,7 +111,7 @@ void Timer::startInterval()
   }
   else
   {
-    m_triggerTimeMillis = m_currentTimeMillis + m_delayMillis;
+    m_triggerTimeMillis = m_currentTimeMillis + m_delayMillis - 1;
     m_triggerTimeMillisUpperLimit = 0xFFFFFFFF;
   }
 }
