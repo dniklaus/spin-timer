@@ -99,6 +99,12 @@ public:
   bool isTimerExpired();
 
   /**
+   * Indicates whether the timer is currently running.
+   * @return true if timer is running.
+   */
+  bool isRunning();
+
+  /**
    * Kick the Timer.
    * Recalculates whether the timer has expired.
    */

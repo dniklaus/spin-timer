@@ -66,6 +66,11 @@ bool Timer::isTimerExpired()
   return isExpired;
 }
 
+bool Timer::isRunning()
+{
+  return (0 != m_delayMillis);
+}
+
 void Timer::tick()
 {
   internalTick();
