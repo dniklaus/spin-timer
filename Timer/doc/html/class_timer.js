@@ -5,6 +5,7 @@ var class_timer =
     [ "adapter", "class_timer.html#a6f3ded33394fed1f309395006ffe2be0", null ],
     [ "attachAdapter", "class_timer.html#a4883a450df4254c2e401093238fe0bfe", null ],
     [ "cancelTimer", "class_timer.html#a71a10cc60908bf8ad8039902b7dde55a", null ],
+    [ "isRunning", "class_timer.html#a2ef50bfc604ea9fb88d3000c9ad0edd9", null ],
     [ "isTimerExpired", "class_timer.html#a7846b11bd06ef3bd6b03813dc8776e76", null ],
     [ "next", "class_timer.html#a75e81a2a5a79e87491884782362dfe1c", null ],
     [ "setNext", "class_timer.html#a992cfdf66831ba30a7b2f180d3a01893", null ],
