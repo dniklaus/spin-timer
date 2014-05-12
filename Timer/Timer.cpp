@@ -8,8 +8,12 @@
 #include "UptimeInfo.h"
 
 #include "Timer.h"
-#include "TimerAdapter.h"
 #include "TimerContext.h"
+
+void scheduleTimers()
+{
+  TimerContext::instance()->handleTick();
+}
 
 const bool Timer::IS_NON_RECURRING = false;
 const bool Timer::IS_RECURRING     = true;

@@ -8,31 +8,11 @@
 #ifndef TIMERADAPTER_H_
 #define TIMERADAPTER_H_
 
+#include "Timer.h"
+
 /**
- * Adapter Interface, will notify timeExpired() event.
- * Implementations derived from this interface can be injected into a Timer object.
- * The Timer then will call out the specific adapter's timeExpired() method.
+ * Class TimerAdapter is an Interface and is defined in Timer.h now.
+ * You have to #include "Timer.h" if you implement an own TimerAdapter.
  */
-class TimerAdapter
-{
-public:
-  virtual ~TimerAdapter();
-
-protected:
-  /**
-   * Constructor, protected since this is an Interface.
-   */
-  TimerAdapter();
-
-public:
-  /**
-   * Time expired event. To be implemented by specific Timer Adapter class.
-   */
-  virtual void timeExpired() = 0;
-
-private: // forbidden default functions
-  TimerAdapter& operator = (const TimerAdapter& ); // assignment operator
-  TimerAdapter(const TimerAdapter& src); // copy constructor
-};
 
 #endif /* TIMERADAPTER_H_ */

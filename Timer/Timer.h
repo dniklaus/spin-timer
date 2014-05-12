@@ -8,7 +8,24 @@
 #ifndef TIMER_H_
 #define TIMER_H_
 
-class TimerAdapter;
+/**
+ * @see TimerContext::handleTick()
+ */
+void scheduleTimers();
+
+/**
+ * Adapter Interface, will notify timeExpired() event.
+ * Implementations derived from this interface can be injected into a Timer object.
+ * The Timer then will call out the specific adapter's timeExpired() method.
+ */
+class TimerAdapter
+{
+public:
+  /**
+   * Time expired event. To be implemented by specific Timer Adapter class.
+   */
+  virtual void timeExpired() = 0;
+};
 
 /**
  * Universal Timer.
@@ -22,14 +39,30 @@ class TimerAdapter;
  *   - recurring (timer automatically restarts after the interval) or
  *   - non-recurring (timer stops after timeout period is over)
  * - timer interval/timeout time configurable ([ms])
- * - automatically attaches to TimerContext's linked list of Timer objects. The TimerContext will
- *   periodically update the timers' state and thus perform the timers' expire evaluation
+ * - automatically attaches to TimerContext's linked list of Timer objects. As long as the
+ *   TimerContext::handleTick() will be called (use global function scheduleTimers() to do so),
+ *   this will periodically update the timers' state and thus perform the timers' expire evaluation
  * - based on millis() function (number of milliseconds since the Arduino board began
  *   running the current program), handles unsigned long int overflows correctly
  *   (occurring around every 50 hours)
+ *
+ * Integration:
+ *
+ *       #include "Timer.h"
+ *
+ *       void loop()
+ *       {
+ *         // Kick the timer(s)
+ *         scheduleTimers();
+ *
+ *         // .. do something else (more useful than busy waiting)
+ *       }
+ *
  */
 class Timer
 {
+  friend class TimerContext;
+
 public:
   /**
    * Timer constructor.
@@ -46,7 +79,7 @@ public:
   virtual ~Timer();
 
   /**
-   * Attach specific Timer Adapter, acts as dependency injection. @see TimerAdapter interface.
+   * Attach specific TimerAdapter, acts as dependency injection. @see TimerAdapter interface.
    * @param adapter Specific TimerAdapter
    */
   void attachAdapter(TimerAdapter* adapter);
@@ -57,6 +90,7 @@ public:
    */
   TimerAdapter* adapter();
 
+protected:
   /**
    * Get next Timer object pointer out of the linked list containing timers.
    * @return Timer object pointer or 0 if current object is the trailing list element.
@@ -69,6 +103,7 @@ public:
    */
   void setNext(Timer* timer);
 
+public:
   /**
    * Start or restart the timer with a specific time out or interval time.
    * @param timeMillis Time out or interval time to be set for the timer [ms]; 0 will cancel the timer, @see cancelTimer().
@@ -93,7 +128,8 @@ public:
    * This method could be used in a pure polling mode, where tick() has not to get called
    * (by the TimerContext::handleTick() method), but also a mixed operation in combination with
    * calling tick() periodically is possible.
-   * Subsequent isTimerExpired() queries will return false after the first one returned true.
+   * Subsequent isTimerExpired() queries will return false after the first one returned true,
+   * as long as the time did not expire again in case of a recurring timer.
    * @return true if the timer has expired.
    */
   bool isTimerExpired();
@@ -123,7 +159,14 @@ private:
   void startInterval();
 
 public:
+  /**
+   * Constant for isRecurring parameter of the constructor (@see Timer()), to create a one shot timer.
+   */
   static const bool IS_NON_RECURRING;
+
+  /**
+   * Constant for isRecurring parameter of the constructor (@see Timer()), to create a recurring timer.
+   */
   static const bool IS_RECURRING;
 
 private:

@@ -15,16 +15,20 @@ class Timer;
  *
  * Features:
  * - is like a very simple scheduler.
- * - has to be kicked (TimerContext::handleTick()) as often as possible and/or on regular intervals,
+ * - has to be kicked (scheduleTimers() or TimerContext::handleTick()) as often as possible and/or on regular intervals,
  *   i.e. in the Arduino main loop() function:
+ *
+ *       #include "Timer.h"
  *
  *       void loop()
  *       {
  *         // Kick the timer(s)
- *         TimerContext::instance()->handleTick();
+ *         // TimerContext::instance()->handleTick();
+ *         scheduleTimers();
  *
  *         // .. do something else (more useful than busy waiting)
  *       }
+ *
  * - holds a single linked list of registered Timer objects,
  *   the Timers automatically attach themselves to this on their creation
  *   and automatically detach themselves on their destruction.
