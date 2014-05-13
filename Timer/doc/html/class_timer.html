@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">Timer
-   &#160;<span id="projectnumber">1.0</span>
+   &#160;<span id="projectnumber">1.1</span>
    </div>
   </td>
  </tr>
@@ -46,6 +46,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -91,7 +92,7 @@ $(document).ready(function(){initNavTree('class_timer.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Friends</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -103,6 +104,11 @@ $(document).ready(function(){initNavTree('class_timer.html','');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="class_timer-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Timer Class Reference</div>  </div>
@@ -110,6 +116,13 @@ $(document).ready(function(){initNavTree('class_timer.html','');});
 <div class="contents">
 
 <p><code>#include &lt;Timer.h&gt;</code></p>
+<div class="dynheader">
+Collaboration diagram for Timer:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_timer__coll__graph.png" border="0" usemap="#_timer_coll__map" alt="Collaboration graph"/></div>
+<map name="_timer_coll__map" id="_timer_coll__map">
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -121,10 +134,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a4883a450df4254c2e401093238fe0bfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6f3ded33394fed1f309395006ffe2be0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_timer_adapter.html">TimerAdapter</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_timer.html#a6f3ded33394fed1f309395006ffe2be0">adapter</a> ()</td></tr>
 <tr class="separator:a6f3ded33394fed1f309395006ffe2be0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75e81a2a5a79e87491884782362dfe1c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_timer.html">Timer</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_timer.html#a75e81a2a5a79e87491884782362dfe1c">next</a> ()</td></tr>
-<tr class="separator:a75e81a2a5a79e87491884782362dfe1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a992cfdf66831ba30a7b2f180d3a01893"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_timer.html#a992cfdf66831ba30a7b2f180d3a01893">setNext</a> (<a class="el" href="class_timer.html">Timer</a> *timer)</td></tr>
-<tr class="separator:a992cfdf66831ba30a7b2f180d3a01893"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a96e0a0bca42c1712c591df70a5399513"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_timer.html#a96e0a0bca42c1712c591df70a5399513">startTimer</a> (unsigned int timeMillis)</td></tr>
 <tr class="separator:a96e0a0bca42c1712c591df70a5399513"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa8c887576ec3b0d68c10ebf4097c367c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_timer.html#aa8c887576ec3b0d68c10ebf4097c367c">startTimer</a> ()</td></tr>
@@ -137,6 +146,58 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a2ef50bfc604ea9fb88d3000c9ad0edd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6f4dc6b9e9f333fa4c60ddf2ff33c801"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_timer.html#a6f4dc6b9e9f333fa4c60ddf2ff33c801">tick</a> ()</td></tr>
 <tr class="separator:a6f4dc6b9e9f333fa4c60ddf2ff33c801"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a287031369f6d34d9add2671bb37a3788"><td class="memItemLeft" align="right" valign="top">static const bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_timer.html#a287031369f6d34d9add2671bb37a3788">IS_NON_RECURRING</a> = false</td></tr>
+<tr class="separator:a287031369f6d34d9add2671bb37a3788"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9bb58fe7dbc2bd142985294aafff1ef3"><td class="memItemLeft" align="right" valign="top">static const bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_timer.html#a9bb58fe7dbc2bd142985294aafff1ef3">IS_RECURRING</a> = true</td></tr>
+<tr class="separator:a9bb58fe7dbc2bd142985294aafff1ef3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a75e81a2a5a79e87491884782362dfe1c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_timer.html">Timer</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_timer.html#a75e81a2a5a79e87491884782362dfe1c">next</a> ()</td></tr>
+<tr class="separator:a75e81a2a5a79e87491884782362dfe1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a992cfdf66831ba30a7b2f180d3a01893"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_timer.html#a992cfdf66831ba30a7b2f180d3a01893">setNext</a> (<a class="el" href="class_timer.html">Timer</a> *timer)</td></tr>
+<tr class="separator:a992cfdf66831ba30a7b2f180d3a01893"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a4b33e2757b1f1e1ce7fe4d716c19af64"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_timer.html#a4b33e2757b1f1e1ce7fe4d716c19af64">internalTick</a> ()</td></tr>
+<tr class="separator:a4b33e2757b1f1e1ce7fe4d716c19af64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3fa36a1557923bdb18002ed526edbabb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_timer.html#a3fa36a1557923bdb18002ed526edbabb">startInterval</a> ()</td></tr>
+<tr class="separator:a3fa36a1557923bdb18002ed526edbabb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb08b3328780dc139efcbf301041081a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_timer.html">Timer</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_timer.html#afb08b3328780dc139efcbf301041081a">operator=</a> (const <a class="el" href="class_timer.html">Timer</a> &amp;src)</td></tr>
+<tr class="separator:afb08b3328780dc139efcbf301041081a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67f89c93c3a5c0950b619eecc6270e85"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_timer.html#a67f89c93c3a5c0950b619eecc6270e85">Timer</a> (const <a class="el" href="class_timer.html">Timer</a> &amp;src)</td></tr>
+<tr class="separator:a67f89c93c3a5c0950b619eecc6270e85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:ac516449fa622ab77845c81575ae8443d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_timer.html#ac516449fa622ab77845c81575ae8443d">m_isRecurring</a></td></tr>
+<tr class="separator:ac516449fa622ab77845c81575ae8443d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45c2a773381afad54b12dd094dddbe3d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_timer.html#a45c2a773381afad54b12dd094dddbe3d">m_isExpiredFlag</a></td></tr>
+<tr class="memdesc:a45c2a773381afad54b12dd094dddbe3d"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_timer.html">Timer</a> mode flag, true: timer will automatically restart after expiration.  <a href="#a45c2a773381afad54b12dd094dddbe3d">More...</a><br/></td></tr>
+<tr class="separator:a45c2a773381afad54b12dd094dddbe3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f341ad0235cdd2ec39f55cac1460d20"><td class="memItemLeft" align="right" valign="top">unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_timer.html#a8f341ad0235cdd2ec39f55cac1460d20">m_currentTimeMillis</a></td></tr>
+<tr class="memdesc:a8f341ad0235cdd2ec39f55cac1460d20"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_timer.html">Timer</a> expiration flag.  <a href="#a8f341ad0235cdd2ec39f55cac1460d20">More...</a><br/></td></tr>
+<tr class="separator:a8f341ad0235cdd2ec39f55cac1460d20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3465550b9dcbe5d18577fbb15160701a"><td class="memItemLeft" align="right" valign="top">unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_timer.html#a3465550b9dcbe5d18577fbb15160701a">m_triggerTimeMillis</a></td></tr>
+<tr class="memdesc:a3465550b9dcbe5d18577fbb15160701a"><td class="mdescLeft">&#160;</td><td class="mdescRight">interval time measurement base, updated every <a class="el" href="class_timer.html#a4b33e2757b1f1e1ce7fe4d716c19af64">internalTick()</a>, called either by <a class="el" href="class_timer.html#a6f4dc6b9e9f333fa4c60ddf2ff33c801">tick()</a> or by <a class="el" href="class_timer.html#a7846b11bd06ef3bd6b03813dc8776e76">isTimerExpired()</a>  <a href="#a3465550b9dcbe5d18577fbb15160701a">More...</a><br/></td></tr>
+<tr class="separator:a3465550b9dcbe5d18577fbb15160701a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24d530c8e129f90d5d52cf644046c7f7"><td class="memItemLeft" align="right" valign="top">unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_timer.html#a24d530c8e129f90d5d52cf644046c7f7">m_triggerTimeMillisUpperLimit</a></td></tr>
+<tr class="separator:a24d530c8e129f90d5d52cf644046c7f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2dac6f01d6cee69b11b17d21edea9c63"><td class="memItemLeft" align="right" valign="top">unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_timer.html#a2dac6f01d6cee69b11b17d21edea9c63">m_delayMillis</a></td></tr>
+<tr class="separator:a2dac6f01d6cee69b11b17d21edea9c63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb0f109fa436681aeb27882b1d2cb44f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_timer_adapter.html">TimerAdapter</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_timer.html#abb0f109fa436681aeb27882b1d2cb44f">m_adapter</a></td></tr>
+<tr class="separator:abb0f109fa436681aeb27882b1d2cb44f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23f122d18d7399538cc677726e5d6bae"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_timer.html">Timer</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_timer.html#a23f122d18d7399538cc677726e5d6bae">m_next</a></td></tr>
+<tr class="separator:a23f122d18d7399538cc677726e5d6bae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a7bacfbce5b132763dddaa16abc8311df"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_timer.html#a7bacfbce5b132763dddaa16abc8311df">TimerContext</a></td></tr>
+<tr class="separator:a7bacfbce5b132763dddaa16abc8311df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Universal <a class="el" href="class_timer.html">Timer</a>.</p>
@@ -154,8 +215,37 @@ Public Member Functions</h2></td></tr>
 </ul>
 </li>
 <li>timer interval/timeout time configurable ([ms])</li>
-<li>automatically attaches to <a class="el" href="class_timer_context.html">TimerContext</a>'s linked list of <a class="el" href="class_timer.html">Timer</a> objects. The <a class="el" href="class_timer_context.html">TimerContext</a> will periodically update the timers' state and thus perform the timers' expire evaluation</li>
-<li>based on millis() function (number of milliseconds since the Arduino board began running the current program), handles unsigned long int overflows correctly (occurring around every 50 hours) </li>
+<li>automatically attaches to <a class="el" href="class_timer_context.html">TimerContext</a>'s linked list of <a class="el" href="class_timer.html">Timer</a> objects. As long as the <a class="el" href="class_timer_context.html#a973a2dc57fe6f7f5f3565344b126122c">TimerContext::handleTick()</a> will be called (use global function <a class="el" href="_timer_8cpp.html#a7f2364edc008cc2606f262114fece9f4">scheduleTimers()</a> to do so), this will periodically update the timers' state and thus perform the timers' expire evaluation</li>
+<li>based on millis() function (number of milliseconds since the Arduino board began running the current program), handles unsigned long int overflows correctly (occurring around every 50 hours)</li>
+</ul>
+<p>Integration:</p>
+<ul>
+<li>Include <pre class="fragment">#include "Timer.h"
+</pre></li>
+<li><a class="el" href="class_timer.html">Timer</a> interval constant definition <pre class="fragment">const unsigned int BLINK_TIME_MILLIS = 200;
+</pre></li>
+<li>specific <a class="el" href="class_timer_adapter.html">TimerAdapter</a> implementation, toggling the built-in LED <pre class="fragment">class BlinkTimerAdapter : public TimerAdapter
+{
+public:
+  void timeExpired()
+  {
+    digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
+  }
+};
+</pre></li>
+<li>Setup: set LED pin to output; create recurring <a class="el" href="class_timer.html">Timer</a>, inject specific <a class="el" href="class_timer_adapter.html">TimerAdapter</a> <pre class="fragment">//The setup function is called once at startup of the sketch
+void setup()
+{
+  pinMode(LED_BUILTIN, OUTPUT);
+  new Timer(new BlinkTimerAdapter(), Timer::IS_RECURRING, BLINK_TIME_MILLIS);
+}
+</pre></li>
+<li>Loop: call <a class="el" href="_timer_8cpp.html#a7f2364edc008cc2606f262114fece9f4">scheduleTimers()</a> <pre class="fragment">// The loop function is called in an endless loop
+void loop()
+{
+  scheduleTimers();
+}
+</pre> </li>
 </ul>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a9bbed6aef844f70020a73adebd67c13a"></a>
@@ -223,6 +313,30 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a67f89c93c3a5c0950b619eecc6270e85"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Timer::Timer </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_timer.html">Timer</a> &amp;&#160;</td>
+          <td class="paramname"><em>src</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a6f3ded33394fed1f309395006ffe2be0"></a>
 <div class="memitem">
@@ -254,7 +368,7 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Attach specific <a class="el" href="class_timer.html">Timer</a> Adapter, acts as dependency injection. </p>
+<p>Attach specific <a class="el" href="class_timer_adapter.html">TimerAdapter</a>, acts as dependency injection. </p>
 <dl class="section see"><dt>See Also</dt><dd><a class="el" href="class_timer_adapter.html">TimerAdapter</a> interface. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -278,6 +392,30 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Cancel the timer and stop. No time expired event will be sent out after the specified time would have been elapsed. Subsequent <a class="el" href="class_timer.html#a7846b11bd06ef3bd6b03813dc8776e76">isTimerExpired()</a> queries will return false. </p>
+
+</div>
+</div>
+<a class="anchor" id="a4b33e2757b1f1e1ce7fe4d716c19af64"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Timer::internalTick </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Internal tick method, evaluates the expired state. </p>
 
 </div>
 </div>
@@ -310,7 +448,7 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Poll method to get the timer expire status, recalculates whether the timer has expired before. This method could be used in a pure polling mode, where <a class="el" href="class_timer.html#a6f4dc6b9e9f333fa4c60ddf2ff33c801">tick()</a> has not to get called (by the <a class="el" href="class_timer_context.html#a973a2dc57fe6f7f5f3565344b126122c">TimerContext::handleTick()</a> method), but also a mixed operation in combination with calling <a class="el" href="class_timer.html#a6f4dc6b9e9f333fa4c60ddf2ff33c801">tick()</a> periodically is possible. Subsequent <a class="el" href="class_timer.html#a7846b11bd06ef3bd6b03813dc8776e76">isTimerExpired()</a> queries will return false after the first one returned true. </p>
+<p>Poll method to get the timer expire status, recalculates whether the timer has expired before. This method could be used in a pure polling mode, where <a class="el" href="class_timer.html#a6f4dc6b9e9f333fa4c60ddf2ff33c801">tick()</a> has not to get called (by the <a class="el" href="class_timer_context.html#a973a2dc57fe6f7f5f3565344b126122c">TimerContext::handleTick()</a> method), but also a mixed operation in combination with calling <a class="el" href="class_timer.html#a6f4dc6b9e9f333fa4c60ddf2ff33c801">tick()</a> periodically is possible. Subsequent <a class="el" href="class_timer.html#a7846b11bd06ef3bd6b03813dc8776e76">isTimerExpired()</a> queries will return false after the first one returned true, as long as the time did not expire again in case of a recurring timer. </p>
 <dl class="section return"><dt>Returns</dt><dd>true if the timer has expired. </dd></dl>
 
 </div>
@@ -318,6 +456,9 @@ Public Member Functions</h2></td></tr>
 <a class="anchor" id="a75e81a2a5a79e87491884782362dfe1c"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="class_timer.html">Timer</a> * Timer::next </td>
@@ -326,15 +467,47 @@ Public Member Functions</h2></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 <p>Get next <a class="el" href="class_timer.html">Timer</a> object pointer out of the linked list containing timers. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="class_timer.html">Timer</a> object pointer or 0 if current object is the trailing list element. </dd></dl>
 
 </div>
 </div>
+<a class="anchor" id="afb08b3328780dc139efcbf301041081a"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_timer.html">Timer</a>&amp; Timer::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_timer.html">Timer</a> &amp;&#160;</td>
+          <td class="paramname"><em>src</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a992cfdf66831ba30a7b2f180d3a01893"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void Timer::setNext </td>
@@ -344,6 +517,11 @@ Public Member Functions</h2></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 <p>Set next <a class="el" href="class_timer.html">Timer</a> object of the linked list containing timers. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -352,6 +530,30 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a class="anchor" id="a3fa36a1557923bdb18002ed526edbabb"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Timer::startInterval </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Starts time interval measurement, calculates the expiration trigger time. Manages to avoid Arduino millis() overflow issues occurring around every 50 hours. </p>
 
 </div>
 </div>
@@ -411,9 +613,241 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a class="anchor" id="a7bacfbce5b132763dddaa16abc8311df"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="class_timer_context.html">TimerContext</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a class="anchor" id="a287031369f6d34d9add2671bb37a3788"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const bool Timer::IS_NON_RECURRING = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Constant for isRecurring parameter of the constructor (</p>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="class_timer.html#a9bbed6aef844f70020a73adebd67c13a">Timer()</a>), to create a one shot timer. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a9bb58fe7dbc2bd142985294aafff1ef3"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const bool Timer::IS_RECURRING = true</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Constant for isRecurring parameter of the constructor (</p>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="class_timer.html#a9bbed6aef844f70020a73adebd67c13a">Timer()</a>), to create a recurring timer. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="abb0f109fa436681aeb27882b1d2cb44f"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_timer_adapter.html">TimerAdapter</a>* Timer::m_adapter</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a8f341ad0235cdd2ec39f55cac1460d20"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned long Timer::m_currentTimeMillis</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><a class="el" href="class_timer.html">Timer</a> expiration flag. </p>
+
+</div>
+</div>
+<a class="anchor" id="a2dac6f01d6cee69b11b17d21edea9c63"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned long Timer::m_delayMillis</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a45c2a773381afad54b12dd094dddbe3d"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Timer::m_isExpiredFlag</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><a class="el" href="class_timer.html">Timer</a> mode flag, true: timer will automatically restart after expiration. </p>
+
+</div>
+</div>
+<a class="anchor" id="ac516449fa622ab77845c81575ae8443d"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Timer::m_isRecurring</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a23f122d18d7399538cc677726e5d6bae"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_timer.html">Timer</a>* Timer::m_next</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a3465550b9dcbe5d18577fbb15160701a"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned long Timer::m_triggerTimeMillis</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>interval time measurement base, updated every <a class="el" href="class_timer.html#a4b33e2757b1f1e1ce7fe4d716c19af64">internalTick()</a>, called either by <a class="el" href="class_timer.html#a6f4dc6b9e9f333fa4c60ddf2ff33c801">tick()</a> or by <a class="el" href="class_timer.html#a7846b11bd06ef3bd6b03813dc8776e76">isTimerExpired()</a> </p>
+
+</div>
+</div>
+<a class="anchor" id="a24d530c8e129f90d5d52cf644046c7f7"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned long Timer::m_triggerTimeMillisUpperLimit</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/git/erni/arduino-menusystem-test/lib/plat/timer/Timer/Timer.h</li>
-<li>C:/git/erni/arduino-menusystem-test/lib/plat/timer/Timer/Timer.cpp</li>
+<li>C:/git/erni/arduino-menusystem-test/lib/plat/timer/Timer/<a class="el" href="_timer_8h.html">Timer.h</a></li>
+<li>C:/git/erni/arduino-menusystem-test/lib/plat/timer/Timer/<a class="el" href="_timer_8cpp.html">Timer.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -421,7 +855,7 @@ Public Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="class_timer.html">Timer</a></li>
-    <li class="footer">Generated on Sun May 11 2014 04:56:36 for Timer by
+    <li class="footer">Generated on Tue May 13 2014 02:12:30 for Timer by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
   </ul>

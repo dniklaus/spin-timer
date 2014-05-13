@@ -48,16 +48,43 @@ public:
  *
  * Integration:
  *
+ * - Include
+ *
  *       #include "Timer.h"
  *
- *       void loop()
- *       {
- *         // Kick the timer(s)
- *         scheduleTimers();
+ * - Timer interval constant definition
  *
- *         // .. do something else (more useful than busy waiting)
+ *       const unsigned int BLINK_TIME_MILLIS = 200;
+ *
+ * - specific TimerAdapter implementation, toggling the built-in LED
+ *
+ *       class BlinkTimerAdapter : public TimerAdapter
+ *       {
+ *       public:
+ *         void timeExpired()
+ *         {
+ *           digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
+ *         }
+ *       };
+ *
+ * - Setup: set LED pin to output; create recurring Timer, inject specific TimerAdapter
+ *
+ *       //The setup function is called once at startup of the sketch
+ *       void setup()
+ *       {
+ *         pinMode(LED_BUILTIN, OUTPUT);
+ *         new Timer(new BlinkTimerAdapter(), Timer::IS_RECURRING, BLINK_TIME_MILLIS);
  *       }
  *
+ * - Loop: call scheduleTimers()
+ *
+ *       // The loop function is called in an endless loop
+ *       void loop()
+ *       {
+ *         scheduleTimers();
+ *       }
+ *
+ * .
  */
 class Timer
 {

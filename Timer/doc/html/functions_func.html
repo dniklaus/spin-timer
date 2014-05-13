@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">Timer
-   &#160;<span id="projectnumber">1.0</span>
+   &#160;<span id="projectnumber">1.1</span>
    </div>
   </td>
  </tr>
@@ -46,6 +46,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -75,6 +76,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="functions.html"><span>All</span></a></li>
       <li class="current"><a href="functions_func.html"><span>Functions</span></a></li>
+      <li><a href="functions_vars.html"><span>Variables</span></a></li>
+      <li><a href="functions_rela.html"><span>Related&#160;Functions</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -97,7 +100,7 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Friends</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -129,6 +132,9 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 <li>instance()
 : <a class="el" href="class_timer_context.html#af5d68fb58caee3c99fcd6ea9cf58fc34">TimerContext</a>
 </li>
+<li>internalTick()
+: <a class="el" href="class_timer.html#a4b33e2757b1f1e1ce7fe4d716c19af64">Timer</a>
+</li>
 <li>isRunning()
 : <a class="el" href="class_timer.html#a2ef50bfc604ea9fb88d3000c9ad0edd9">Timer</a>
 </li>
@@ -138,11 +144,19 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 <li>next()
 : <a class="el" href="class_timer.html#a75e81a2a5a79e87491884782362dfe1c">Timer</a>
 </li>
+<li>operator=()
+: <a class="el" href="class_timer.html#afb08b3328780dc139efcbf301041081a">Timer</a>
+, <a class="el" href="class_timer_context.html#a3a82092fd905e02accb4ffa313ad680e">TimerContext</a>
+, <a class="el" href="class_uptime_info.html#a5cb433f8d81234e7f793967e14d17fb2">UptimeInfo</a>
+</li>
 <li>setNext()
 : <a class="el" href="class_timer.html#a992cfdf66831ba30a7b2f180d3a01893">Timer</a>
 </li>
+<li>startInterval()
+: <a class="el" href="class_timer.html#a3fa36a1557923bdb18002ed526edbabb">Timer</a>
+</li>
 <li>startTimer()
-: <a class="el" href="class_timer.html#aa8c887576ec3b0d68c10ebf4097c367c">Timer</a>
+: <a class="el" href="class_timer.html#a96e0a0bca42c1712c591df70a5399513">Timer</a>
 </li>
 <li>tick()
 : <a class="el" href="class_timer.html#a6f4dc6b9e9f333fa4c60ddf2ff33c801">Timer</a>
@@ -151,13 +165,16 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 : <a class="el" href="class_timer_adapter.html#ad6ce069f3f25468ee84bc50f803aa657">TimerAdapter</a>
 </li>
 <li>Timer()
-: <a class="el" href="class_timer.html#a9bbed6aef844f70020a73adebd67c13a">Timer</a>
+: <a class="el" href="class_timer.html#a67f89c93c3a5c0950b619eecc6270e85">Timer</a>
 </li>
-<li>TimerAdapter()
-: <a class="el" href="class_timer_adapter.html#ad72e99ad69218b9d8c1584eab56ae27f">TimerAdapter</a>
+<li>TimerContext()
+: <a class="el" href="class_timer_context.html#ab87897f391fee6e238b9834e4182611a">TimerContext</a>
 </li>
 <li>tMillis()
 : <a class="el" href="class_uptime_info.html#a1c8b4e79271bfec0503c6b6df67c6cfb">UptimeInfo</a>
+</li>
+<li>UptimeInfo()
+: <a class="el" href="class_uptime_info.html#a959cd9f3f342d22ebc64d51308b8d285">UptimeInfo</a>
 </li>
 <li>~Timer()
 : <a class="el" href="class_timer.html#a14fa469c4c295c5fa6e66a4ad1092146">Timer</a>
@@ -165,13 +182,16 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 <li>~TimerContext()
 : <a class="el" href="class_timer_context.html#a50467cf05052121d274a21d0cf1dfa58">TimerContext</a>
 </li>
+<li>~UptimeInfo()
+: <a class="el" href="class_uptime_info.html#a4e56bc899803cadf5b7e2f0d1c6de03b">UptimeInfo</a>
+</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Sun May 11 2014 04:56:36 for Timer by
+    <li class="footer">Generated on Tue May 13 2014 02:12:30 for Timer by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
   </ul>

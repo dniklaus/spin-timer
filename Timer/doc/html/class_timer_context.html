@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">Timer
-   &#160;<span id="projectnumber">1.0</span>
+   &#160;<span id="projectnumber">1.1</span>
    </div>
   </td>
  </tr>
@@ -46,6 +46,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -91,7 +92,7 @@ $(document).ready(function(){initNavTree('class_timer_context.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Friends</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -104,6 +105,9 @@ $(document).ready(function(){initNavTree('class_timer_context.html','');});
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="class_timer_context-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">TimerContext Class Reference</div>  </div>
@@ -111,6 +115,13 @@ $(document).ready(function(){initNavTree('class_timer_context.html','');});
 <div class="contents">
 
 <p><code>#include &lt;TimerContext.h&gt;</code></p>
+<div class="dynheader">
+Collaboration diagram for TimerContext:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_timer_context__coll__graph.png" border="0" usemap="#_timer_context_coll__map" alt="Collaboration graph"/></div>
+<map name="_timer_context_coll__map" id="_timer_context_coll__map">
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -127,16 +138,39 @@ Public Member Functions</h2></td></tr>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:af5d68fb58caee3c99fcd6ea9cf58fc34"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_timer_context.html">TimerContext</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_timer_context.html#af5d68fb58caee3c99fcd6ea9cf58fc34">instance</a> ()</td></tr>
 <tr class="separator:af5d68fb58caee3c99fcd6ea9cf58fc34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a122ce9672310449ecb8e4a55fa590ff1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_timer_context.html#a122ce9672310449ecb8e4a55fa590ff1">TimerContext</a> ()</td></tr>
+<tr class="separator:a122ce9672310449ecb8e4a55fa590ff1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a82092fd905e02accb4ffa313ad680e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_timer_context.html">TimerContext</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_timer_context.html#a3a82092fd905e02accb4ffa313ad680e">operator=</a> (const <a class="el" href="class_timer_context.html">TimerContext</a> &amp;src)</td></tr>
+<tr class="memdesc:a3a82092fd905e02accb4ffa313ad680e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Root node of single linked list containing the timers to be kicked.  <a href="#a3a82092fd905e02accb4ffa313ad680e">More...</a><br/></td></tr>
+<tr class="separator:a3a82092fd905e02accb4ffa313ad680e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab87897f391fee6e238b9834e4182611a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_timer_context.html#ab87897f391fee6e238b9834e4182611a">TimerContext</a> (const <a class="el" href="class_timer_context.html">TimerContext</a> &amp;src)</td></tr>
+<tr class="separator:ab87897f391fee6e238b9834e4182611a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a3e55a18f985b5f0ee7788bddfe88fdca"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_timer.html">Timer</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_timer_context.html#a3e55a18f985b5f0ee7788bddfe88fdca">m_timer</a></td></tr>
+<tr class="memdesc:a3e55a18f985b5f0ee7788bddfe88fdca"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_timer.html">Timer</a> Context singleton instance variable.  <a href="#a3e55a18f985b5f0ee7788bddfe88fdca">More...</a><br/></td></tr>
+<tr class="separator:a3e55a18f985b5f0ee7788bddfe88fdca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-attribs"></a>
+Static Private Attributes</h2></td></tr>
+<tr class="memitem:a5d75e3bc303ccec24cbed132eb2349a8"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_timer_context.html">TimerContext</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_timer_context.html#a5d75e3bc303ccec24cbed132eb2349a8">s_instance</a> = (<a class="el" href="class_timer_context.html">TimerContext</a>*)0</td></tr>
+<tr class="separator:a5d75e3bc303ccec24cbed132eb2349a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="class_timer.html">Timer</a> Context.</p>
 <p>Features:</p>
 <ul>
 <li>is like a very simple scheduler.</li>
-<li>has to be kicked (<a class="el" href="class_timer_context.html#a973a2dc57fe6f7f5f3565344b126122c">TimerContext::handleTick()</a>) as often as possible and/or on regular intervals, i.e. in the Arduino main loop() function: <pre class="fragment">void loop()
+<li>has to be kicked (<a class="el" href="_timer_8cpp.html#a7f2364edc008cc2606f262114fece9f4">scheduleTimers()</a> or <a class="el" href="class_timer_context.html#a973a2dc57fe6f7f5f3565344b126122c">TimerContext::handleTick()</a>) as often as possible and/or on regular intervals, i.e. in the Arduino main loop() function: <pre class="fragment">#include "Timer.h"
+
+void loop()
 {
   // Kick the timer(s)
-  TimerContext::instance()-&gt;handleTick();
+  scheduleTimers();
 
   // .. do something else (more useful than busy waiting)
 }
@@ -166,6 +200,54 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <p>Destructor. </p>
+
+</div>
+</div>
+<a class="anchor" id="a122ce9672310449ecb8e4a55fa590ff1"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">TimerContext::TimerContext </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Constructor. </p>
+
+</div>
+</div>
+<a class="anchor" id="ab87897f391fee6e238b9834e4182611a"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">TimerContext::TimerContext </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_timer_context.html">TimerContext</a> &amp;&#160;</td>
+          <td class="paramname"><em>src</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -257,9 +339,78 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a3a82092fd905e02accb4ffa313ad680e"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_timer_context.html">TimerContext</a>&amp; TimerContext::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_timer_context.html">TimerContext</a> &amp;&#160;</td>
+          <td class="paramname"><em>src</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Root node of single linked list containing the timers to be kicked. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a class="anchor" id="a3e55a18f985b5f0ee7788bddfe88fdca"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_timer.html">Timer</a>* TimerContext::m_timer</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><a class="el" href="class_timer.html">Timer</a> Context singleton instance variable. </p>
+
+</div>
+</div>
+<a class="anchor" id="a5d75e3bc303ccec24cbed132eb2349a8"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_timer_context.html">TimerContext</a> * TimerContext::s_instance = (<a class="el" href="class_timer_context.html">TimerContext</a>*)0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/git/erni/arduino-menusystem-test/lib/plat/timer/Timer/TimerContext.h</li>
-<li>C:/git/erni/arduino-menusystem-test/lib/plat/timer/Timer/TimerContext.cpp</li>
+<li>C:/git/erni/arduino-menusystem-test/lib/plat/timer/Timer/<a class="el" href="_timer_context_8h.html">TimerContext.h</a></li>
+<li>C:/git/erni/arduino-menusystem-test/lib/plat/timer/Timer/<a class="el" href="_timer_context_8cpp.html">TimerContext.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -267,7 +418,7 @@ Static Public Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="class_timer_context.html">TimerContext</a></li>
-    <li class="footer">Generated on Sun May 11 2014 04:56:36 for Timer by
+    <li class="footer">Generated on Tue May 13 2014 02:12:30 for Timer by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
   </ul>

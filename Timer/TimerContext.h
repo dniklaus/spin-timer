@@ -23,7 +23,6 @@ class Timer;
  *       void loop()
  *       {
  *         // Kick the timer(s)
- *         // TimerContext::instance()->handleTick();
  *         scheduleTimers();
  *
  *         // .. do something else (more useful than busy waiting)

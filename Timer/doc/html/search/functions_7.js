@@ -1,8 +1,7 @@
 var searchData=
 [
-  ['tick',['tick',['../class_timer.html#a6f4dc6b9e9f333fa4c60ddf2ff33c801',1,'Timer']]],
-  ['timeexpired',['timeExpired',['../class_timer_adapter.html#ad6ce069f3f25468ee84bc50f803aa657',1,'TimerAdapter']]],
-  ['timer',['Timer',['../class_timer.html#a9bbed6aef844f70020a73adebd67c13a',1,'Timer']]],
-  ['timeradapter',['TimerAdapter',['../class_timer_adapter.html#ad72e99ad69218b9d8c1584eab56ae27f',1,'TimerAdapter']]],
-  ['tmillis',['tMillis',['../class_uptime_info.html#a1c8b4e79271bfec0503c6b6df67c6cfb',1,'UptimeInfo']]]
+  ['scheduletimers',['scheduleTimers',['../_timer_8cpp.html#a7f2364edc008cc2606f262114fece9f4',1,'scheduleTimers():&#160;Timer.cpp'],['../_timer_8h.html#a7f2364edc008cc2606f262114fece9f4',1,'scheduleTimers():&#160;Timer.cpp']]],
+  ['setnext',['setNext',['../class_timer.html#a992cfdf66831ba30a7b2f180d3a01893',1,'Timer']]],
+  ['startinterval',['startInterval',['../class_timer.html#a3fa36a1557923bdb18002ed526edbabb',1,'Timer']]],
+  ['starttimer',['startTimer',['../class_timer.html#a96e0a0bca42c1712c591df70a5399513',1,'Timer::startTimer(unsigned int timeMillis)'],['../class_timer.html#aa8c887576ec3b0d68c10ebf4097c367c',1,'Timer::startTimer()']]]
 ];

@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['setnext',['setNext',['../class_timer.html#a992cfdf66831ba30a7b2f180d3a01893',1,'Timer']]],
-  ['starttimer',['startTimer',['../class_timer.html#a96e0a0bca42c1712c591df70a5399513',1,'Timer::startTimer(unsigned int timeMillis)'],['../class_timer.html#aa8c887576ec3b0d68c10ebf4097c367c',1,'Timer::startTimer()']]]
+  ['operator_3d',['operator=',['../class_timer.html#afb08b3328780dc139efcbf301041081a',1,'Timer::operator=()'],['../class_timer_context.html#a3a82092fd905e02accb4ffa313ad680e',1,'TimerContext::operator=()'],['../class_uptime_info.html#a5cb433f8d81234e7f793967e14d17fb2',1,'UptimeInfo::operator=()']]]
 ];
