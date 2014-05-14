@@ -25,6 +25,16 @@ public:
    * Time expired event. To be implemented by specific Timer Adapter class.
    */
   virtual void timeExpired() = 0;
+
+protected:
+  TimerAdapter() { }
+
+public:
+  virtual ~TimerAdapter() { }
+
+private:  // forbidden functions
+  TimerAdapter(const TimerAdapter& src);              // copy constructor
+  TimerAdapter& operator = (const TimerAdapter& src); // assignment operator
 };
 
 /**

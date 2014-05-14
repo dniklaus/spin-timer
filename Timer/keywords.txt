@@ -1,0 +1,17 @@
+Timer			KEYWORD1
+adapter			KEYWORD2
+attachAdapter		KEYWORD2
+startTimer		KEYWORD2
+cancelTimer		KEYWORD2
+isTimerExpired		KEYWORD2
+isRunning		KEYWORD2
+tick			KEYWORD2
+
+TimerAdapter		KEYWORD1
+timeExpired		KEYWORD2
+
+TimerContext		KEYWORD1
+instance		KEYWORD2
+handleTick		KEYWORD2
+
+scheduleTimers		KEYWORD2

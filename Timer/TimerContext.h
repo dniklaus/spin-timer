@@ -35,6 +35,8 @@ class Timer;
  */
 class TimerContext
 {
+  friend class Timer;
+
 public:
   /**
    * Create and/or return singleton instance of Timer Context.
@@ -47,6 +49,7 @@ public:
    */
   virtual ~TimerContext();
 
+protected:
   /**
    * Add a Timer object to the single linked list.
    * @param timer Timer object pointer.
@@ -59,6 +62,7 @@ public:
    */
   void detach(Timer* timer);
 
+public:
   /**
    * Kick all attached Timer objects (calls the Timer::tick() method).
    */

@@ -5,8 +5,8 @@
  *      Author: niklausd
  */
 
+#include <limits.h>
 #include "UptimeInfo.h"
-
 #include "Timer.h"
 #include "TimerContext.h"
 
@@ -23,7 +23,7 @@ Timer::Timer(TimerAdapter* adapter, bool isRecurring, unsigned int timeMillis)
 , m_isExpiredFlag(false)
 , m_currentTimeMillis(0)
 , m_triggerTimeMillis(0)
-, m_triggerTimeMillisUpperLimit(0xFFFFFFFF)
+, m_triggerTimeMillisUpperLimit(ULONG_MAX)
 , m_delayMillis(0)
 , m_adapter(adapter)
 , m_next(0)
@@ -111,7 +111,7 @@ void Timer::startTimer()
 
 void Timer::startInterval()
 {
-  unsigned long deltaTime = 0xFFFFFFFF - m_currentTimeMillis;
+  unsigned long deltaTime = ULONG_MAX - m_currentTimeMillis;
   if (deltaTime < m_delayMillis)
   {
     // overflow will occur
