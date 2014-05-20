@@ -121,7 +121,7 @@ void Timer::startInterval()
   else
   {
     m_triggerTimeMillis = m_currentTimeMillis + m_delayMillis - 1;
-    m_triggerTimeMillisUpperLimit = 0xFFFFFFFF;
+    m_triggerTimeMillisUpperLimit = ULONG_MAX;
   }
 }
 
@@ -135,6 +135,10 @@ void Timer::internalTick()
     if (m_isRecurring)
     {
       startInterval();
+    }
+    else
+    {
+      m_delayMillis = 0;
     }
 
     m_isExpiredFlag = true;
