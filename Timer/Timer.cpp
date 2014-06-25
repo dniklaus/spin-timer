@@ -15,6 +15,19 @@ void scheduleTimers()
   TimerContext::instance()->handleTick();
 }
 
+void delayAndSchedule(unsigned int delayMillis)
+{
+  // create a one-shot timer on the fly
+  Timer delayTimer(0, Timer::IS_NON_RECURRING, (delayMillis));
+
+  // wait until the timer expires
+  while (!delayTimer.isTimerExpired())
+  {
+    // schedule the timer above and all the other timers, so they will still run in 'parallel'
+    scheduleTimers();
+  }
+}
+
 const bool Timer::IS_NON_RECURRING = false;
 const bool Timer::IS_RECURRING     = true;
 

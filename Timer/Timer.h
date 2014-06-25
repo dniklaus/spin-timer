@@ -9,9 +9,16 @@
 #define TIMER_H_
 
 /**
+ * Schedule all timers, check their expiration states.
  * @see TimerContext::handleTick()
  */
 void scheduleTimers();
+
+/**
+ * Delay the caller by the mentioned time while all timers are scheduled in the meanwhile.
+ * @param delayMillis Tim to wait in [ms]
+ */
+void delayAndSchedule(unsigned int delayMillis);
 
 /**
  * Adapter Interface, will notify timeExpired() event.
