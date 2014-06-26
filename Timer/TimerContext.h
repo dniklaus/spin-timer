@@ -1,4 +1,22 @@
 /*
+  Copyright (c) 2014 D. Niklaus.  All right reserved.
+
+  This library is free software; you can redistribute it and/or
+  modify it under the terms of the GNU Lesser General Public
+  License as published by the Free Software Foundation; either
+  version 2.1 of the License, or (at your option) any later version.
+
+  This library is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+  See the GNU Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this library; if not, write to the Free Software
+  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
+
+/*
  * TimerContext.h
  *
  *  Created on: 25.09.2013
@@ -15,7 +33,7 @@ class Timer;
  *
  * Features:
  * - is like a very simple scheduler.
- * - has to be kicked (scheduleTimers() or TimerContext::handleTick()) as often as possible and/or on regular intervals,
+ * - has to be kicked (by calling yield(), scheduleTimers() or TimerContext::handleTick()) as often as possible and/or on regular intervals,
  *   i.e. in the Arduino main loop() function:
  *
  *       #include "Timer.h"
@@ -23,9 +41,9 @@ class Timer;
  *       void loop()
  *       {
  *         // Kick the timer(s)
- *         scheduleTimers();
+ *         yield();
  *
- *         // .. do something else (more useful than busy waiting)
+ *         // .. do something
  *       }
  *
  * - holds a single linked list of registered Timer objects,

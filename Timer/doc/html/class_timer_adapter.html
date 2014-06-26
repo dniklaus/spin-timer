@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">Timer
-   &#160;<span id="projectnumber">1.1</span>
+   &#160;<span id="projectnumber">2.1</span>
    </div>
   </td>
  </tr>
@@ -104,6 +104,8 @@ $(document).ready(function(){initNavTree('class_timer_adapter.html','');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="class_timer_adapter-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">TimerAdapter Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
@@ -116,10 +118,119 @@ $(document).ready(function(){initNavTree('class_timer_adapter.html','');});
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ad6ce069f3f25468ee84bc50f803aa657"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_timer_adapter.html#ad6ce069f3f25468ee84bc50f803aa657">timeExpired</a> ()=0</td></tr>
 <tr class="separator:ad6ce069f3f25468ee84bc50f803aa657"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3dc38006c269897901442a15ffb77a5c"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_timer_adapter.html#a3dc38006c269897901442a15ffb77a5c">~TimerAdapter</a> ()</td></tr>
+<tr class="separator:a3dc38006c269897901442a15ffb77a5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:ad72e99ad69218b9d8c1584eab56ae27f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_timer_adapter.html#ad72e99ad69218b9d8c1584eab56ae27f">TimerAdapter</a> ()</td></tr>
+<tr class="separator:ad72e99ad69218b9d8c1584eab56ae27f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a165467dec826ee1a8b70c28c468691dc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_timer_adapter.html#a165467dec826ee1a8b70c28c468691dc">TimerAdapter</a> (const <a class="el" href="class_timer_adapter.html">TimerAdapter</a> &amp;src)</td></tr>
+<tr class="separator:a165467dec826ee1a8b70c28c468691dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6829b20fb1cdff06431b07dcc6e74557"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_timer_adapter.html">TimerAdapter</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_timer_adapter.html#a6829b20fb1cdff06431b07dcc6e74557">operator=</a> (const <a class="el" href="class_timer_adapter.html">TimerAdapter</a> &amp;src)</td></tr>
+<tr class="separator:a6829b20fb1cdff06431b07dcc6e74557"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Adapter Interface, will notify <a class="el" href="class_timer_adapter.html#ad6ce069f3f25468ee84bc50f803aa657">timeExpired()</a> event. Implementations derived from this interface can be injected into a <a class="el" href="class_timer.html">Timer</a> object. The <a class="el" href="class_timer.html">Timer</a> then will call out the specific adapter's <a class="el" href="class_timer_adapter.html#ad6ce069f3f25468ee84bc50f803aa657">timeExpired()</a> method. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="ad72e99ad69218b9d8c1584eab56ae27f"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">TimerAdapter::TimerAdapter </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a3dc38006c269897901442a15ffb77a5c"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual TimerAdapter::~TimerAdapter </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a165467dec826ee1a8b70c28c468691dc"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">TimerAdapter::TimerAdapter </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_timer_adapter.html">TimerAdapter</a> &amp;&#160;</td>
+          <td class="paramname"><em>src</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a6829b20fb1cdff06431b07dcc6e74557"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_timer_adapter.html">TimerAdapter</a>&amp; TimerAdapter::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_timer_adapter.html">TimerAdapter</a> &amp;&#160;</td>
+          <td class="paramname"><em>src</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="ad6ce069f3f25468ee84bc50f803aa657"></a>
 <div class="memitem">
 <div class="memproto">
@@ -145,7 +256,7 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/git/erni/arduino-menusystem-test/lib/plat/timer/Timer/<a class="el" href="_timer_8h.html">Timer.h</a></li>
+<li>C:/git/test-workspaces/TimerTest/lib/plat/timer/Timer/<a class="el" href="_timer_8h.html">Timer.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -153,7 +264,7 @@ Public Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="class_timer_adapter.html">TimerAdapter</a></li>
-    <li class="footer">Generated on Tue May 13 2014 02:12:30 for Timer by
+    <li class="footer">Generated on Thu Jun 26 2014 09:07:56 for Timer by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
   </ul>

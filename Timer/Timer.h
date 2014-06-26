@@ -1,4 +1,22 @@
 /*
+  Copyright (c) 2014 D. Niklaus.  All right reserved.
+
+  This library is free software; you can redistribute it and/or
+  modify it under the terms of the GNU Lesser General Public
+  License as published by the Free Software Foundation; either
+  version 2.1 of the License, or (at your option) any later version.
+
+  This library is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+  See the GNU Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this library; if not, write to the Free Software
+  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
+
+/*
  * Timer.h
  *
  *  Created on: 13.08.2013
@@ -15,8 +33,22 @@
 void scheduleTimers();
 
 /**
- * Delay the caller by the mentioned time while all timers are scheduled in the meanwhile.
- * @param delayMillis Tim to wait in [ms]
+ * Schedule all timers, check their expiration states.
+ * @see scheduleTimers()
+ *
+ * The yield() function prototype is declared in arduino.h, and an empty weak implementation is defined in arduino/core/hooks.c.
+ * The linker will override the weak by this implementation.
+ *
+ * Call this function from large loops in order to keep the timers keep being scheduled all the time.
+ * The arduino sleep() function calls this as well.
+ */
+void yield();
+
+/**
+ * Delay the caller by the mentioned time while all timers are kept being scheduled in the meanwhile.
+ * @param delayMillis Time to wait in [ms]
+ *
+ * This function is kept for backward compatibility, you can use the arduino delay() function instead.
  */
 void delayAndSchedule(unsigned int delayMillis);
 
@@ -48,22 +80,25 @@ private:  // forbidden functions
  * Universal Timer.
  *
  * Features:
- * - intended use: non-busy wait for time spans in a range of 10 to hundreds of milliseconds, such as:
+ * - intended use: encapsulate recurring and non-recurring timed actions with a non-busy wait approach for time spans in a range of 10 to thousands of milliseconds, such as:
  *   - debouncing push-button and switch signals
  *   - blink some LEDs
  *   - schedule some sequences where time accuracy is not crucial
+ *   - implements Arduino yield() function in order to keep the timers scheduling ongoing even while applications and drivers use the Arduino delay() function
  * - configurable to be either
  *   - recurring (timer automatically restarts after the interval) or
  *   - non-recurring (timer stops after timeout period is over)
  * - timer interval/timeout time configurable ([ms])
  * - automatically attaches to TimerContext's linked list of Timer objects. As long as the
- *   TimerContext::handleTick() will be called (use global function scheduleTimers() to do so),
- *   this will periodically update the timers' state and thus perform the timers' expire evaluation
+ *   TimerContext::handleTick() will be called (use global functions yield() or scheduleTimers() to do so),
+ *   this will periodically update the timers' states and thus perform the timers' expire evaluations
  * - based on millis() function (number of milliseconds since the Arduino board began
  *   running the current program), handles unsigned long int overflows correctly
  *   (occurring around every 50 hours)
  *
  * Integration:
+ *
+ * (shown on the basis of a simple application toggling the Arduino board's built-in LED)
  *
  * - Include
  *
@@ -73,7 +108,7 @@ private:  // forbidden functions
  *
  *       const unsigned int BLINK_TIME_MILLIS = 200;
  *
- * - specific TimerAdapter implementation, toggling the built-in LED
+ * - specific TimerAdapter implementation, periodically toggling the built-in LED
  *
  *       class BlinkTimerAdapter : public TimerAdapter
  *       {
@@ -93,12 +128,12 @@ private:  // forbidden functions
  *         new Timer(new BlinkTimerAdapter(), Timer::IS_RECURRING, BLINK_TIME_MILLIS);
  *       }
  *
- * - Loop: call scheduleTimers()
+ * - Loop: call yield(), the Arduino scheduler function
  *
  *       // The loop function is called in an endless loop
  *       void loop()
  *       {
- *         scheduleTimers();
+ *         yield();
  *       }
  *
  * .

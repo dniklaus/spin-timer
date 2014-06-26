@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">Timer
-   &#160;<span id="projectnumber">1.1</span>
+   &#160;<span id="projectnumber">2.1</span>
    </div>
   </td>
  </tr>
@@ -116,13 +116,6 @@ $(document).ready(function(){initNavTree('class_timer.html','');});
 <div class="contents">
 
 <p><code>#include &lt;Timer.h&gt;</code></p>
-<div class="dynheader">
-Collaboration diagram for Timer:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_timer__coll__graph.png" border="0" usemap="#_timer_coll__map" alt="Collaboration graph"/></div>
-<map name="_timer_coll__map" id="_timer_coll__map">
-</map>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -203,10 +196,11 @@ Friends</h2></td></tr>
 <div class="textblock"><p>Universal <a class="el" href="class_timer.html">Timer</a>.</p>
 <p>Features:</p>
 <ul>
-<li>intended use: non-busy wait for time spans in a range of 10 to hundreds of milliseconds, such as:<ul>
+<li>intended use: encapsulate recurring and non-recurring timed actions with a non-busy wait approach for time spans in a range of 10 to thousands of milliseconds, such as:<ul>
 <li>debouncing push-button and switch signals</li>
 <li>blink some LEDs</li>
 <li>schedule some sequences where time accuracy is not crucial</li>
+<li>implements Arduino <a class="el" href="_timer_8cpp.html#a58c8b2ad0ea491a6642e5e1cbd358c89">yield()</a> function in order to keep the timers scheduling ongoing even while applications and drivers use the Arduino delay() function</li>
 </ul>
 </li>
 <li>configurable to be either<ul>
@@ -215,16 +209,17 @@ Friends</h2></td></tr>
 </ul>
 </li>
 <li>timer interval/timeout time configurable ([ms])</li>
-<li>automatically attaches to <a class="el" href="class_timer_context.html">TimerContext</a>'s linked list of <a class="el" href="class_timer.html">Timer</a> objects. As long as the <a class="el" href="class_timer_context.html#a973a2dc57fe6f7f5f3565344b126122c">TimerContext::handleTick()</a> will be called (use global function <a class="el" href="_timer_8cpp.html#a7f2364edc008cc2606f262114fece9f4">scheduleTimers()</a> to do so), this will periodically update the timers' state and thus perform the timers' expire evaluation</li>
+<li>automatically attaches to <a class="el" href="class_timer_context.html">TimerContext</a>'s linked list of <a class="el" href="class_timer.html">Timer</a> objects. As long as the <a class="el" href="class_timer_context.html#a973a2dc57fe6f7f5f3565344b126122c">TimerContext::handleTick()</a> will be called (use global functions <a class="el" href="_timer_8cpp.html#a58c8b2ad0ea491a6642e5e1cbd358c89">yield()</a> or <a class="el" href="_timer_8cpp.html#a7f2364edc008cc2606f262114fece9f4">scheduleTimers()</a> to do so), this will periodically update the timers' states and thus perform the timers' expire evaluations</li>
 <li>based on millis() function (number of milliseconds since the Arduino board began running the current program), handles unsigned long int overflows correctly (occurring around every 50 hours)</li>
 </ul>
 <p>Integration:</p>
+<p>(shown on the basis of a simple application toggling the Arduino board's built-in LED)</p>
 <ul>
 <li>Include <pre class="fragment">#include "Timer.h"
 </pre></li>
 <li><a class="el" href="class_timer.html">Timer</a> interval constant definition <pre class="fragment">const unsigned int BLINK_TIME_MILLIS = 200;
 </pre></li>
-<li>specific <a class="el" href="class_timer_adapter.html">TimerAdapter</a> implementation, toggling the built-in LED <pre class="fragment">class BlinkTimerAdapter : public TimerAdapter
+<li>specific <a class="el" href="class_timer_adapter.html">TimerAdapter</a> implementation, periodically toggling the built-in LED <pre class="fragment">class BlinkTimerAdapter : public TimerAdapter
 {
 public:
   void timeExpired()
@@ -240,10 +235,10 @@ void setup()
   new Timer(new BlinkTimerAdapter(), Timer::IS_RECURRING, BLINK_TIME_MILLIS);
 }
 </pre></li>
-<li>Loop: call <a class="el" href="_timer_8cpp.html#a7f2364edc008cc2606f262114fece9f4">scheduleTimers()</a> <pre class="fragment">// The loop function is called in an endless loop
+<li>Loop: call <a class="el" href="_timer_8cpp.html#a58c8b2ad0ea491a6642e5e1cbd358c89">yield()</a>, the Arduino scheduler function <pre class="fragment">// The loop function is called in an endless loop
 void loop()
 {
-  scheduleTimers();
+  yield();
 }
 </pre> </li>
 </ul>
@@ -846,8 +841,8 @@ void loop()
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/git/erni/arduino-menusystem-test/lib/plat/timer/Timer/<a class="el" href="_timer_8h.html">Timer.h</a></li>
-<li>C:/git/erni/arduino-menusystem-test/lib/plat/timer/Timer/<a class="el" href="_timer_8cpp.html">Timer.cpp</a></li>
+<li>C:/git/test-workspaces/TimerTest/lib/plat/timer/Timer/<a class="el" href="_timer_8h.html">Timer.h</a></li>
+<li>C:/git/test-workspaces/TimerTest/lib/plat/timer/Timer/<a class="el" href="_timer_8cpp.html">Timer.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -855,7 +850,7 @@ void loop()
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="class_timer.html">Timer</a></li>
-    <li class="footer">Generated on Tue May 13 2014 02:12:30 for Timer by
+    <li class="footer">Generated on Thu Jun 26 2014 09:07:56 for Timer by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
   </ul>

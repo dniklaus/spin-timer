@@ -17,8 +17,6 @@ var class_timer =
     [ "startTimer", "class_timer.html#aa8c887576ec3b0d68c10ebf4097c367c", null ],
     [ "tick", "class_timer.html#a6f4dc6b9e9f333fa4c60ddf2ff33c801", null ],
     [ "TimerContext", "class_timer.html#a7bacfbce5b132763dddaa16abc8311df", null ],
-    [ "IS_NON_RECURRING", "class_timer.html#a287031369f6d34d9add2671bb37a3788", null ],
-    [ "IS_RECURRING", "class_timer.html#a9bb58fe7dbc2bd142985294aafff1ef3", null ],
     [ "m_adapter", "class_timer.html#abb0f109fa436681aeb27882b1d2cb44f", null ],
     [ "m_currentTimeMillis", "class_timer.html#a8f341ad0235cdd2ec39f55cac1460d20", null ],
     [ "m_delayMillis", "class_timer.html#a2dac6f01d6cee69b11b17d21edea9c63", null ],
