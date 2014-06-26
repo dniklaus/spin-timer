@@ -26,6 +26,10 @@
 #ifndef TIMER_H_
 #define TIMER_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * Schedule all timers, check their expiration states.
  * @see TimerContext::handleTick()
@@ -42,7 +46,11 @@ void scheduleTimers();
  * Call this function from large loops in order to keep the timers keep being scheduled all the time.
  * The arduino sleep() function calls this as well.
  */
-void yield();
+extern void yield();
+
+#ifdef __cplusplus
+} // extern "C"
+#endif
 
 /**
  * Delay the caller by the mentioned time while all timers are kept being scheduled in the meanwhile.
