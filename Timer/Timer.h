@@ -157,7 +157,7 @@ public:
    * @param isRecurring Operation mode, true: recurring, false: non-recurring, default: false
    * @param timeMillis Timer interval/timeout time [ms], >0: timer starts automatically after creation, others: timer stopped after creation, default: 0
    */
-  Timer(TimerAdapter* adapter = 0, bool isRecurring = false, unsigned int timeMillis = 0);
+  Timer(TimerAdapter* adapter = 0, bool isRecurring = false, unsigned long timeMillis = 0);
 
   /**
    * Timer destructor.
@@ -195,7 +195,7 @@ public:
    * Start or restart the timer with a specific time out or interval time.
    * @param timeMillis Time out or interval time to be set for the timer [ms]; 0 will cancel the timer, @see cancelTimer().
    */
-  void startTimer(unsigned int timeMillis);
+  void startTimer(unsigned long timeMillis);
 
   /**
    * Start or restart the timer.

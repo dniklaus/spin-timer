@@ -54,7 +54,7 @@ void delayAndSchedule(unsigned int delayMillis)
 const bool Timer::IS_NON_RECURRING = false;
 const bool Timer::IS_RECURRING     = true;
 
-Timer::Timer(TimerAdapter* adapter, bool isRecurring, unsigned int timeMillis)
+Timer::Timer(TimerAdapter* adapter, bool isRecurring, unsigned long timeMillis)
 : m_isRecurring(isRecurring)
 , m_isExpiredFlag(false)
 , m_currentTimeMillis(0)
@@ -122,7 +122,7 @@ void Timer::cancelTimer()
   m_isExpiredFlag = false;
 }
 
-void Timer::startTimer(unsigned int timeMillis)
+void Timer::startTimer(unsigned long timeMillis)
 {
   m_delayMillis = timeMillis;
   if (m_delayMillis > 0)
