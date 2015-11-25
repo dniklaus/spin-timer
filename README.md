@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/dniklaus/arduino-utils-timer.png?label=ready&title=Ready)](https://waffle.io/dniklaus/arduino-utils-timer)
 arduino-utils-timer
 ===================
 
