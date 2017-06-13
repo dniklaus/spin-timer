@@ -98,7 +98,7 @@ This section describes the Timer library Application Programming Interface.
   `static const bool IS_RECURRING = true`
 
 
-##TimerAdapter
+## TimerAdapter
 * Adapter Interface, will notify `timeExpired()` event.
 * Implementations derived from this interface can be injected into a Timer object.
 * The Timer then will call out the specific adapter's timeExpired() method.
