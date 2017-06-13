@@ -3,7 +3,7 @@ wiring-timer
 
 Universal Timer based on Arduino millis() function, supporting OOP principles and interoperating with Arduino yield() and delay() functions.
 
-#Features
+# Features
 
 * configurable to be either recurring (timer automatically restarts after the interval) or non-recurring (timer stops after timeout period is over)
 * timer interval/timeout time configurable
@@ -11,7 +11,7 @@ Universal Timer based on Arduino millis() function, supporting OOP principles an
 * based on Arduino millis() function (number of milliseconds since the Arduino board began running the current program), handles unsigned long int overflows correctly
 * implements Arduino yield() function in order to keep the timers' scheduling ongoing even while applications and drivers use the Arduino delay() function 
 
-#Integration
+# Integration
 Here the integration of a Timer is hown with a simple Arduino Sketch toggling the Arduino board's built-in LED (blink):
 
 * Include the library
@@ -59,7 +59,7 @@ Here the integration of a Timer is hown with a simple Arduino Sketch toggling th
       }
 
 
-#API
+# API
 
 This section describes the Timer library Application Programming Interface.
 ## Timer
@@ -69,7 +69,7 @@ This section describes the Timer library Application Programming Interface.
   * Parameter `isRecurring`: Operation mode, true: recurring, false: non-recurring, default: false
   * Parameter `timeMillis`: Timer interval/timeout time [ms], >0: timer starts automatically after creation, others: timer remains stopped after creation, default: 0
 * *Attach specific TimerAdapter*, acts as dependency injection. `void attachAdapter(TimerAdapter* adapter)`
-  * Parameter `adapter`: Specific `TimerAdapter` implementation**  
+  * Parameter `adapter`: Specific `TimerAdapter` implementation
 * *Timer Adapter get accessor* method. `TimerAdapter* adapter()`
    * Returns `TimerAdapter`: Object pointer or 0 if no adapter is attached.
 * *Start or restart the timer* with a specific time out or interval time. `void startTimer(unsigned long timeMillis)`
