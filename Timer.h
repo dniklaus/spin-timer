@@ -28,7 +28,9 @@ void scheduleTimers();
  * Call this function from large loops in order to keep the timers keep being scheduled all the time.
  * The arduino sleep() function calls this as well.
  */
+#ifndef ESP8266
 extern void yield();
+#endif
 
 #ifdef __cplusplus
 } // extern "C"

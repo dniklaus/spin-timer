@@ -9,7 +9,7 @@ Universal Timer based on Arduino millis() function, supporting OOP principles an
 * timer interval/timeout time configurable
 * attaches automatically to Timer Context which periodically updates all registered timers' states and performs the timer expire evaluation for each registered timer
 * based on Arduino millis() function (number of milliseconds since the Arduino board began running the current program), handles unsigned long int overflows correctly
-* implements Arduino yield() function in order to keep the timers' scheduling ongoing even while applications and drivers use the Arduino delay() function 
+* implements Arduino yield() function in order to keep the timers' scheduling ongoing even while applications and drivers use the Arduino delay() function (Note: this is not supported when running on ESP8266 cores)
 
 # Integration
 Here the integration of a Timer is hown with a simple Arduino Sketch toggling the Arduino board's built-in LED (blink):
@@ -58,6 +58,13 @@ Here the integration of a Timer is hown with a simple Arduino Sketch toggling th
         delay(10);
       }
 
+* ESP8266 Loop: call `scheduleTimers()` function
+
+      // The loop function is called in an endless loop
+      void loop()
+      {
+        scheduleTimers();
+      }
 
 # API
 

@@ -27,6 +27,10 @@ void setup()
 // The loop function is called in an endless loop
 void loop()
 {
+  #ifdef ESP8266
+  scheduleTimers();
+  #else
   yield();
+  #endif
 }
   
