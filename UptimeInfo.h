@@ -8,6 +8,8 @@
 #ifndef UPTIMEINFO_H_
 #define UPTIMEINFO_H_
 
+#include "Timer.h"
+
 /**
  * Helper class to use the appropriate time base depending on platfrom.
  * Supported platforms:
@@ -17,14 +19,46 @@
 class UptimeInfo
 {
 public:
-  UptimeInfo() { }
-  virtual ~UptimeInfo() { }
+  static inline UptimeInfo* Instance()
+  {
+    if (0 == s_instance)
+    {
+      s_instance = new UptimeInfo();
+    }
+    return s_instance;
+  }
+
+protected:
+  UptimeInfo();
+
+public:
+  virtual ~UptimeInfo();
+
+  void setAdapter(UptimeInfoAdapter* adapter);
+
+  static inline UptimeInfoAdapter* adapter()
+  {
+    return s_adapter;
+  }
 
   /**
    * Returns the number of milliseconds since the program started.
    * @return Number of milliseconds since the program started.
    */
-  static unsigned long tMillis();
+  static inline unsigned long tMillis()
+  {
+    unsigned long ms = 0;
+    if (0 != adapter())
+    {
+      ms = adapter()->tMillis();
+    }
+    return ms;
+  }
+
+
+private:
+  static UptimeInfo*        s_instance;
+  static UptimeInfoAdapter* s_adapter;
 
 private: // forbidden functions
   UptimeInfo& operator = (const UptimeInfo& src); // assignment operator

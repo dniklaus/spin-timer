@@ -111,7 +111,7 @@ void Timer::startTimer(unsigned long timeMillis)
   m_delayMillis = timeMillis;
   if (m_delayMillis > 0)
   {
-    m_currentTimeMillis = UptimeInfo::tMillis();
+    m_currentTimeMillis = UptimeInfo::Instance()->tMillis();
     startInterval();
   }
   else
@@ -124,7 +124,7 @@ void Timer::startTimer()
 {
   if (m_delayMillis > 0)
   {
-    m_currentTimeMillis = UptimeInfo::tMillis();
+    m_currentTimeMillis = UptimeInfo::Instance()->tMillis();
     startInterval();
   }
 }
@@ -147,7 +147,7 @@ void Timer::startInterval()
 
 void Timer::internalTick()
 {
-  m_currentTimeMillis = UptimeInfo::tMillis();
+  m_currentTimeMillis = UptimeInfo::Instance()->tMillis();
 
   // check if interval is over, as long as (m_delayMillis > 0)
   if ((m_delayMillis > 0) && (m_triggerTimeMillis < m_currentTimeMillis) && (m_currentTimeMillis < m_triggerTimeMillisUpperLimit))
