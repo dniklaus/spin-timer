@@ -8,7 +8,29 @@
 #ifndef UPTIMEINFO_H_
 #define UPTIMEINFO_H_
 
-#include "Timer.h"
+/**
+ * Adapter Interface, will call-out the platform specific up-time info time in milliseconds.
+ */
+class UptimeInfoAdapter
+{
+public:
+  /**
+   * Up-time query call-out. To be implemented according to platform specific circumstances.
+   * @return Number of milliseconds since the program started.
+   */
+  virtual unsigned long tMillis() = 0;
+
+protected:
+  UptimeInfoAdapter() { }
+
+public:
+  virtual ~UptimeInfoAdapter() { }
+
+private:  // forbidden functions
+  UptimeInfoAdapter(const UptimeInfoAdapter& src);              // copy constructor
+  UptimeInfoAdapter& operator = (const UptimeInfoAdapter& src); // assignment operator
+};
+
 
 /**
  * Helper class to use the appropriate time base depending on platfrom.
