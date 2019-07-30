@@ -139,7 +139,7 @@ public:
    * Timer constructor.
    * @param adapter TimerAdapter, is able to emit a timer expired event to any specific listener, default: 0 (no event will be sent)
    * @param isRecurring Operation mode, true: recurring, false: non-recurring, default: false
-   * @param timeMillis Timer interval/timeout time [ms], >0: timer starts automatically after creation, others: timer stopped after creation, default: 0
+   * @param timeMillis Timer interval/timeout time [ms], >0: timer starts automatically after creation, 0: timer remains stopped after creation (timer will expire as soon as possible when started with startTimer()), default: 0
    */
   Timer(TimerAdapter* adapter = 0, bool isRecurring = false, unsigned long timeMillis = 0);
 
@@ -177,14 +177,13 @@ protected:
 public:
   /**
    * Start or restart the timer with a specific time out or interval time.
-   * @param timeMillis Time out or interval time to be set for the timer [ms]; 0 will cancel the timer, @see cancelTimer().
+   * @param timeMillis Time out or interval time to be set for the timer [ms]; 0 will make the timer expire as soon as possible.
    */
   void startTimer(unsigned long timeMillis);
 
   /**
    * Start or restart the timer.
-   * If the timer has been canceled before, this will have no effect -
-   * in order to start the timer again, the startTimer(timeMillis) method with specific time value parameter has to be used instead.
+   * The timer will expire after the specified time set with the constructor or startTimer(timeMillis) before.
    */
   void startTimer();
 
@@ -225,7 +224,7 @@ private:
 
   /**
    * Starts time interval measurement, calculates the expiration trigger time.
-   * Manages to avoid Arduino millis() overflow issues occurring around every 50 hours.
+   * Manages to avoid unsigned long int overflow issues occurring around every 50 hours.
    */
   void startInterval();
 
@@ -241,6 +240,7 @@ public:
   static const bool IS_RECURRING;
 
 private:
+  bool m_isRunning; /// Timer is running flag, true: timer is running, false: timer is stopped.
   bool m_isRecurring; /// Timer mode flag, true: timer will automatically restart after expiration.
   bool m_isExpiredFlag; /// Timer expiration flag.
   unsigned long m_currentTimeMillis; /// interval time measurement base, updated every internalTick(), called either by tick() or by isTimerExpired()

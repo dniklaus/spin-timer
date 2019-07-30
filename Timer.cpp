@@ -39,20 +39,21 @@ const bool Timer::IS_NON_RECURRING = false;
 const bool Timer::IS_RECURRING     = true;
 
 Timer::Timer(TimerAdapter* adapter, bool isRecurring, unsigned long timeMillis)
-: m_isRecurring(isRecurring)
+: m_isRunning(false)
+, m_isRecurring(isRecurring)
 , m_isExpiredFlag(false)
 , m_currentTimeMillis(0)
 , m_triggerTimeMillis(0)
 , m_triggerTimeMillisUpperLimit(ULONG_MAX)
-, m_delayMillis(0)
+, m_delayMillis(timeMillis)
 , m_adapter(adapter)
 , m_next(0)
 {
   TimerContext::instance()->attach(this);
 
-  if (0 < timeMillis)
+  if (0 < m_delayMillis)
   {
-    startTimer(timeMillis);
+    startTimer();
   }
 }
 
@@ -92,7 +93,7 @@ bool Timer::isTimerExpired()
 
 bool Timer::isRunning()
 {
-  return (0 != m_delayMillis);
+  return m_isRunning;
 }
 
 void Timer::tick()
@@ -102,31 +103,23 @@ void Timer::tick()
 
 void Timer::cancelTimer()
 {
-  m_delayMillis = 0;
+  m_isRunning = false;
   m_isExpiredFlag = false;
 }
 
 void Timer::startTimer(unsigned long timeMillis)
 {
+  m_isRunning = true;
   m_delayMillis = timeMillis;
-  if (m_delayMillis > 0)
-  {
-    m_currentTimeMillis = UptimeInfo::Instance()->tMillis();
-    startInterval();
-  }
-  else
-  {
-    cancelTimer();
-  }
+  m_currentTimeMillis = UptimeInfo::Instance()->tMillis();
+  startInterval();
 }
 
 void Timer::startTimer()
 {
-  if (m_delayMillis > 0)
-  {
-    m_currentTimeMillis = UptimeInfo::Instance()->tMillis();
-    startInterval();
-  }
+  m_isRunning = true;
+  m_currentTimeMillis = UptimeInfo::Instance()->tMillis();
+  startInterval();
 }
 
 void Timer::startInterval()
@@ -149,16 +142,18 @@ void Timer::internalTick()
 {
   m_currentTimeMillis = UptimeInfo::Instance()->tMillis();
 
-  // check if interval is over, as long as (m_delayMillis > 0)
-  if ((m_delayMillis > 0) && (m_triggerTimeMillis < m_currentTimeMillis) && (m_currentTimeMillis < m_triggerTimeMillisUpperLimit))
+  // check if interval is over as long as the timer shall be running
+  if (m_isRunning && (m_triggerTimeMillis < m_currentTimeMillis) && (m_currentTimeMillis < m_triggerTimeMillisUpperLimit))
   {
+    // interval is over
     if (m_isRecurring)
     {
+      // start next interval
       startInterval();
     }
     else
     {
-      m_delayMillis = 0;
+      m_isRunning = false;
     }
 
     m_isExpiredFlag = true;
