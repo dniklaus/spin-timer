@@ -1,70 +1,147 @@
 wiring-timer
 ===================
 
-Universal Timer based on Arduino millis() function, supporting OOP principles and interoperating with Arduino yield() and delay() functions.
+Universal Timer with 1 millisecond resolution, originally based on Arduino millis() function, supporting OOP principles.
 
 # Features
 
 * configurable to be either recurring (timer automatically restarts after the interval) or non-recurring (timer stops after timeout period is over)
 * timer interval/timeout time configurable
-* attaches automatically to Timer Context which periodically updates all registered timers' states and performs the timer expire evaluation for each registered timer
-* based on Arduino millis() function (number of milliseconds since the Arduino board began running the current program), handles unsigned long int overflows correctly
+* attaches automatically in the background to a Timer Context which periodically updates all registered timers' states and performs the timer expire evaluation for each registered timer
+* originally based on Arduino millis() function (number of milliseconds since the Arduino board began running the current program), the source of the uptime info [ms] can be overridden by injecting a platform specific implementation 
+* handles unsigned long int overflows correctly
 * implements Arduino yield() function in order to keep the timers' scheduling ongoing even while applications and drivers use the Arduino delay() function (Note: this is not supported when running on ESP8266 cores)
 
 # Integration
-Here the integration of a Timer is hown with a simple Arduino Sketch toggling the Arduino board's built-in LED (blink):
+Here the integration of a Timer is shown with a simple Arduino Sketch toggling the Arduino board's built-in LED (blink):
 
 * Include the library
 
-      #include <Timer.h>
+  ```C++
+  #include <Timer.h>
+  ```
 
 * Timer interval constant definition
 
-      const unsigned int BLINK_TIME_MILLIS = 200;
+  ```C++
+  const unsigned int BLINK_TIME_MILLIS = 200;
+  ```
 
 * specific `TimerAdapter` implementation, periodically toggling the Arduino built-in LED
 
-      class BlinkTimerAdapter : public TimerAdapter
-      {
-      public:
-        void timeExpired()
-        {
-          digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
-        }
-      };
+  ```C++
+  class BlinkTimerAdapter : public TimerAdapter
+  {
+  public:
+    void timeExpired()
+    {
+      digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
+    }
+  };
+  ```
 
 * Setup: set LED pin to output; create recurring Timer, inject specific TimerAdapter
 
-      //The setup function is called once at startup of the sketch
-      void setup()
-      {
-        pinMode(LED_BUILTIN, OUTPUT);
-        new Timer(new BlinkTimerAdapter(), Timer::IS_RECURRING, BLINK_TIME_MILLIS);
-      }
+  ```c++
+  //The setup function is called once at startup of the sketch
+  void setup()
+  {
+    pinMode(LED_BUILTIN, OUTPUT);
+    new Timer(new BlinkTimerAdapter(), Timer::IS_RECURRING, BLINK_TIME_MILLIS);
+  }
+  ```
 
-* Loop: call `yield()`, the Arduino scheduler function
+* Arduino Loop: call `yield()`, the Arduino scheduler function
 
-      // The loop function is called in an endless loop
-      void loop()
-      {
-        yield();
-      }
+  ```C++
+  // The loop function is called in an endless loop
+  void loop()
+  {
+    yield();
+  }
+  ```
 
-* Loop: or alternatively call Arduino `delay()` function
+* Arduino Loop: or alternatively call Arduino `delay()` function
 
-      // The loop function is called in an endless loop
-      void loop()
-      {
-        delay(10);
-      }
+  ```C++
+  // The loop function is called in an endless loop
+  void loop()
+  {
+    delay(10);
+  }
+  ```
 
-* ESP8266 Loop: call `scheduleTimers()` function
+* Arduino or other platforms (ESP8266, STM32Cube, Linux, ...) Loop: call `scheduleTimers()` function
 
-      // The loop function is called in an endless loop
-      void loop()
-      {
-        scheduleTimers();
-      }
+  ```C++
+  // The loop function is called in an endless loop
+  void loop()
+  {
+    scheduleTimers();
+  }
+  ```
+
+
+
+## Platform specific Uptime Info Adapter injection
+
+When using the Timer library with an Arduino Framework environment the uptime milliseconds counter info default implementation is automatically engaged and nothing has to be done.
+
+If you are using other environments (i.e. when running in an STM32Cube system), a specific `UptimeInfoAdapter` implementation has to be used and injected. The following example shows the specific `STM32UptimeInfoAdapter`implementation of `UptimeInfoAdapter`as to be found in the Examples folder:
+
+```C++
+/*
+ * STM32UptimeInfoAdapter.h
+ *
+ *  Created on: 30.07.2019
+ *      Author: dniklaus
+ */
+
+#ifndef STM32UPTIMEINFOADAPTER_H_
+#define STM32UPTIMEINFOADAPTER_H_
+
+#include "stm32l4xx_hal.h"
+#include "UptimeInfo.h"
+
+class STM32UptimeInfoAdapter: public UptimeInfoAdapter
+{
+public:
+  inline unsigned long tMillis()
+  {
+    unsigned long ms = HAL_GetTick();
+    return ms;
+  }
+};
+
+#endif /* STM32UPTIMEINFOADAPTER_H_ */
+
+```
+
+
+
+Here is how the `STM32UptimeInfoAdapter` implementation is injected into the `UptimeInfo` instance:
+
+```C++
+// ..
+#include "STM32UptimeInfoAdapter.h"
+
+int main(void)
+{
+  HAL_Init();
+  SystemClock_Config();
+  // ..
+  UptimeInfo::Instance()->setAdapter(new STM32UptimeInfoAdapter());  
+
+  // ..
+    
+  while (1)
+  {
+    scheduleTimers();
+  }    
+}
+```
+
+
 
 # API
 
@@ -74,15 +151,15 @@ This section describes the Timer library Application Programming Interface.
   Will attach itself to the `TimerContext` (which normally keeps being hidden to the application).
   * Parameter `adapter`: `TimerAdapter` to be injected, is able to emit a timer expired event to any specific listener, default: 0 (no event will be sent)
   * Parameter `isRecurring`: Operation mode, true: recurring, false: non-recurring, default: false
-  * Parameter `timeMillis`: Timer interval/timeout time [ms], >0: timer starts automatically after creation, others: timer remains stopped after creation, default: 0
+  * Parameter `timeMillis`: Timer interval/timeout time [ms], >0: timer starts automatically after creation, 0: timer remains stopped after creation (timer will expire as soon as possible when started with startTimer()), default: 0
 * *Attach specific TimerAdapter*, acts as dependency injection. `void attachAdapter(TimerAdapter* adapter)`
   * Parameter `adapter`: Specific `TimerAdapter` implementation
 * *Timer Adapter get accessor* method. `TimerAdapter* adapter()`
    * Returns `TimerAdapter`: Object pointer or 0 if no adapter is attached.
 * *Start or restart the timer* with a specific time out or interval time. `void startTimer(unsigned long timeMillis)`
-   * Parameter `timeMillis`: Time out or interval time to be set for the timer [ms]; 0 will cancel the timer.
+   * Parameter `timeMillis`: Time out or interval time to be set for the timer [ms]; 0 will make the timer expire as soon as possible.
 * *Start or restart the timer*. `void startTimer()`
-   * If the timer has been canceled before, this will have no effect - in order to start the timer again, the `startTimer(timeMillis)` method with specific time value parameter has to be used instead.
+   * The timer will expire after the specified time set with the constructor or `startTimer(timeMillis)` before.
 * *Cancel the timer and stop*. `void cancelTimer()`
   * No time expired event will be sent out after the specified time would have been elapsed.
   * Subsequent `isTimerExpired()` queries will return false.
@@ -108,12 +185,20 @@ This section describes the Timer library Application Programming Interface.
 ## TimerAdapter
 * Adapter Interface, will notify `timeExpired()` event.
 * Implementations derived from this interface can be injected into a Timer object.
-* The Timer then will call out the specific adapter's timeExpired() method.
-Interface sending out a `timerExpired()` event.
+  * the Timer then will call out the specific adapter's `timeExpired()` method.
+  Interface sending out a `timerExpired()` event.
 * *Time expired event*. To be implemented by specific Timer Adapter class. `virtual void timeExpired() = 0`
 
+## UptimeInfoAdapter
 
-## Notes
+* Uptime Info Adapter Interface, will call out to `tMillis()` method to get current milliseconds counter value.
+* Implementations derived from this interface can be injected into the `UptimeInfo` singleton object.
+* Default implementation `DefaultUptimeInfoAdapter` for Arduino Framework environments is engaged automatically
+* Call out to get current milliseconds. To be implemented by specific Uptime Info Adapter class. `virtual unsigned long tMillis() = 0`
+
+
+
+# Notes
 This repository is a renamed clone of https://github.com/dniklaus/arduino-utils-timer (Release 2.3.0).
 
 For more details, please refer to the wiki: https://github.com/dniklaus/arduino-utils-timer/wiki/Timer
