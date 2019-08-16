@@ -15,13 +15,6 @@ void scheduleTimers()
   TimerContext::instance()->handleTick();
 }
 
-#ifndef ESP8266
-void yield()
-{
-  TimerContext::instance()->handleTick();
-}
-#endif
-
 void delayAndSchedule(unsigned int delayMillis)
 {
   // create a one-shot timer on the fly
