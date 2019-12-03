@@ -3,25 +3,30 @@ wiring-timer
 
 Universal Timer with 1 millisecond resolution, originally based on Arduino millis() function, supporting OOP principles.
 
+
+
 # Features
 
 * configurable to be either recurring (timer automatically restarts after the interval) or non-recurring (timer stops after timeout period is over)
 * timer interval/timeout time configurable
 * attaches automatically in the background to a Timer Context which periodically updates all registered timers' states and performs the timer expire evaluation for each registered timer
-* originally based on Arduino millis() function (number of milliseconds since the Arduino board began running the current program), the source of the uptime info [ms] can be overridden by injecting a platform specific implementation 
+* originally based on Arduino millis() function (number of milliseconds since the Arduino board began running the current program), the source of the uptime info [ms] can be overridden by injecting a platform specific implementation when working with other frameworks than with Arduino
 * handles unsigned long int overflows correctly
-* implements Arduino yield() function in order to keep the timers' scheduling ongoing even while applications and drivers use the Arduino delay() function (Note: this is not supported when running on ESP8266 cores)
+* could provide overwriting Arduino yield() function implementation (when defining particular pre-processor switch) in order to keep the timers' scheduling ongoing even while applications and drivers use the Arduino delay() function (Note: this is not supported when running on ESP8266 or ESP32 cores or when not using with Arduino framework)
+
+
 
 # Integration
+
 Here the integration of a Timer is shown with a simple Arduino Sketch toggling the Arduino board's built-in LED (blink):
 
-* Include the library
+* include the library
 
   ```C++
   #include <Timer.h>
   ```
 
-* Timer interval constant definition
+* timer interval constant definition
 
   ```C++
   const unsigned int BLINK_TIME_MILLIS = 200;
@@ -40,7 +45,7 @@ Here the integration of a Timer is shown with a simple Arduino Sketch toggling t
   };
   ```
 
-* Setup: set LED pin to output; create recurring Timer, inject specific TimerAdapter
+* setup: set LED pin to output; create recurring Timer, inject specific TimerAdapter
 
   ```c++
   //The setup function is called once at startup of the sketch
@@ -51,33 +56,48 @@ Here the integration of a Timer is shown with a simple Arduino Sketch toggling t
   }
   ```
 
-* Arduino Loop: call `yield()`, the Arduino scheduler function
+* loop: call `scheduleTimers()` function
 
   ```C++
   // The loop function is called in an endless loop
+  // When using the scheduleTimers() option, you might want to add 
+  //    #define WIRINGTIMER_SUPPRESS_WARNINGS 1 
+  // before the line
+  //    #include <Timer.h> 
+  // above, otherwise a warning is getting emitted.
+  void loop()
+  {
+    scheduleTimers();
+  }
+  ```
+
+* loop (alternative): call `yield()`, the Arduino scheduler function (will not work with ESP32, ESP8266, STM32Cube, Linux, ...)
+
+  ```C++
+  // The loop function is called in an endless loop.
+  // When using the yield() option, you have to add 
+  //    #define WIRINGTIMER_YIELD_DEFINE 1 
+  // before the line
+  //    #include <Timer.h> 
+  // above, otherwise the yield() implementation will not be available.
   void loop()
   {
     yield();
   }
   ```
 
-* Arduino Loop: or alternatively call Arduino `delay()` function
+* loop (alternative): call Arduino `delay()` function (will not work with ESP32, ESP8266, STM32Cube, Linux, ...)
 
   ```C++
   // The loop function is called in an endless loop
+  // When using the delay() option, you have to add 
+  //    #define WIRINGTIMER_YIELD_DEFINE 1 
+  // before the line
+  //    #include <Timer.h> 
+  // above, otherwise the yield() implementation will not be available.
   void loop()
   {
     delay(10);
-  }
-  ```
-
-* Arduino or other platforms (ESP8266, STM32Cube, Linux, ...) Loop: call `scheduleTimers()` function
-
-  ```C++
-  // The loop function is called in an endless loop
-  void loop()
-  {
-    scheduleTimers();
   }
   ```
 

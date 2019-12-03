@@ -1,3 +1,4 @@
+#define WIRINGTIMER_SUPPRESS_WARNINGS 1
 #include <Timer.h>
 
 void toggleLed(int ledPin)
@@ -27,10 +28,6 @@ void setup()
 // The loop function is called in an endless loop
 void loop()
 {
-  #ifdef ESP8266
   scheduleTimers();
-  #else
-  yield();
-  #endif
 }
   

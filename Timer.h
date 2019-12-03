@@ -28,8 +28,15 @@ void scheduleTimers();
  * Call this function from large loops in order to keep the timers keep being scheduled all the time.
  * The arduino sleep() function calls this as well.
  */
-#ifndef ESP8266
-extern void yield();
+#if defined (WIRINGTIMER_YIELD_DEFINE)
+void yield()
+{
+  scheduleTimers();
+}
+#elif ! defined (WIRINGTIMER_SUPPRESS_WARNINGS) // intentionally undocumented (see below); define if the warning is getting annoying :) -- be careful using this for obvious reasons...
+// Let's provide a warning in keeping with Arduino's "Be kind to the end user" philosophy, because there won't be an
+// obvious indication of failure if someone skims the docs and mistakenly defines COOPMULTITASKING_NO_YIELD_DEFINE.
+#warning WIRINGTIMER_YIELD_DEFINE is not defined, so yield() will NOT call scheduleTimers(). Your code MUST explicitly call scheduleTimers(). See the documentation for details.
 #endif
 
 #ifdef __cplusplus
@@ -42,7 +49,7 @@ extern void yield();
  *
  * This function is kept for backward compatibility, you can use the arduino delay() function instead.
  */
-void delayAndSchedule(unsigned int delayMillis);
+void delayAndSchedule(unsigned long delayMillis);
 
 /**
  * Adapter Interface, will notify timeExpired() event.

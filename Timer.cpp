@@ -7,22 +7,15 @@
 
 #include <limits.h>
 #include "UptimeInfo.h"
-#include "Timer.h"
 #include "TimerContext.h"
+#include "Timer.h"
 
 void scheduleTimers()
 {
   TimerContext::instance()->handleTick();
 }
 
-#ifndef ESP8266
-void yield()
-{
-  TimerContext::instance()->handleTick();
-}
-#endif
-
-void delayAndSchedule(unsigned int delayMillis)
+void delayAndSchedule(unsigned long delayMillis)
 {
   // create a one-shot timer on the fly
   Timer delayTimer(0, Timer::IS_NON_RECURRING, (delayMillis));
