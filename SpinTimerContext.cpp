@@ -5,21 +5,22 @@
  *      Author: niklausd
  */
 
-#include "TimerContext.h"
-#include "Timer.h"
+#include "SpinTimerContext.h"
 
-TimerContext* TimerContext::s_instance = (TimerContext*)0;
+#include "SpinTimer.h"
 
-TimerContext* TimerContext::instance()
+SpinTimerContext* SpinTimerContext::s_instance = (SpinTimerContext*)0;
+
+SpinTimerContext* SpinTimerContext::instance()
 {
   if (0 == s_instance)
   {
-    s_instance = new TimerContext();
+    s_instance = new SpinTimerContext();
   }
   return s_instance;
 }
 
-void TimerContext::attach(Timer* timer)
+void SpinTimerContext::attach(SpinTimer* timer)
 {
   if (0 == m_timer)
   {
@@ -27,7 +28,7 @@ void TimerContext::attach(Timer* timer)
   }
   else
   {
-    Timer* next = m_timer;
+    SpinTimer* next = m_timer;
     while (next->next() != 0)
     {
       next = next->next();
@@ -36,7 +37,7 @@ void TimerContext::attach(Timer* timer)
   }
 }
 
-void TimerContext::detach(Timer* timer)
+void SpinTimerContext::detach(SpinTimer* timer)
 {
   if (m_timer == timer)
   {
@@ -44,7 +45,7 @@ void TimerContext::detach(Timer* timer)
   }
   else
   {
-    Timer* next = m_timer;
+    SpinTimer* next = m_timer;
     while ((next != 0) && (next->next() != timer))
     {
       next = next->next();
@@ -56,9 +57,9 @@ void TimerContext::detach(Timer* timer)
   }
 }
 
-void TimerContext::handleTick()
+void SpinTimerContext::handleTick()
 {
-  Timer* timer = m_timer;
+  SpinTimer* timer = m_timer;
   while (timer != 0)
   {
     timer->tick();
@@ -66,10 +67,10 @@ void TimerContext::handleTick()
   }
 }
 
-TimerContext::TimerContext()
+SpinTimerContext::SpinTimerContext()
 : m_timer(0)
 { }
 
-TimerContext::~TimerContext()
+SpinTimerContext::~SpinTimerContext()
 { }
 

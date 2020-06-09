@@ -8,7 +8,7 @@
 #ifndef TIMERCONTEX_H_
 #define TIMERCONTEX_H_
 
-class Timer;
+class SpinTimer;
 
 /**
  * Timer Context.
@@ -33,34 +33,34 @@ class Timer;
  *   and automatically detach themselves on their destruction.
  * - is a Singleton
  */
-class TimerContext
+class SpinTimerContext
 {
-  friend class Timer;
+  friend class SpinTimer;
 
 public:
   /**
    * Create and/or return singleton instance of Timer Context.
    * @return Pointer to singleton TimerContext object pointer.
    */
-  static TimerContext* instance();
+  static SpinTimerContext* instance();
 
   /**
    * Destructor.
    */
-  virtual ~TimerContext();
+  virtual ~SpinTimerContext();
 
 protected:
   /**
    * Add a Timer object to the single linked list.
    * @param timer Timer object pointer.
    */
-  void attach(Timer* timer);
+  void attach(SpinTimer* timer);
 
   /**
    * Remove specified Timer object from the single linked list.
    * @param timer Timer object pointer.
    */
-  void detach(Timer* timer);
+  void detach(SpinTimer* timer);
 
 public:
   /**
@@ -72,15 +72,15 @@ private:
   /**
    * Constructor.
    */
-  TimerContext();
+  SpinTimerContext();
 
 private:
-  static TimerContext* s_instance; /// Timer Context singleton instance variable.
-  Timer* m_timer; /// Root node of single linked list containing the timers to be kicked.
+  static SpinTimerContext* s_instance; /// Timer Context singleton instance variable.
+  SpinTimer* m_timer; /// Root node of single linked list containing the timers to be kicked.
 
 private: // forbidden default functions
-  TimerContext& operator = (const TimerContext& src); // assignment operator
-  TimerContext(const TimerContext& src);              // copy constructor
+  SpinTimerContext& operator = (const SpinTimerContext& src); // assignment operator
+  SpinTimerContext(const SpinTimerContext& src);              // copy constructor
 };
 
 #endif /* TIMERCONTEX_H_ */

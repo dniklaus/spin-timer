@@ -1,12 +1,12 @@
 /*
- * Timer.h
+ * SpinTimer.h
  *
  *  Created on: 13.08.2013
  *      Author: niklausd
  */
 
-#ifndef TIMER_H_
-#define TIMER_H_
+#ifndef SPINTIMER_H_
+#define SPINTIMER_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -56,7 +56,7 @@ void delayAndSchedule(unsigned long delayMillis);
  * Implementations derived from this interface can be injected into a Timer object.
  * The Timer then will call out the specific adapter's timeExpired() method.
  */
-class TimerAdapter
+class SpinTimerAdapter
 {
 public:
   /**
@@ -65,14 +65,14 @@ public:
   virtual void timeExpired() = 0;
 
 protected:
-  TimerAdapter() { }
+  SpinTimerAdapter() { }
 
 public:
-  virtual ~TimerAdapter() { }
+  virtual ~SpinTimerAdapter() { }
 
 private:  // forbidden functions
-  TimerAdapter(const TimerAdapter& src);              // copy constructor
-  TimerAdapter& operator = (const TimerAdapter& src); // assignment operator
+  SpinTimerAdapter(const SpinTimerAdapter& src);              // copy constructor
+  SpinTimerAdapter& operator = (const SpinTimerAdapter& src); // assignment operator
 };
 
 /**
@@ -137,9 +137,9 @@ private:  // forbidden functions
  *
  * .
  */
-class Timer
+class SpinTimer
 {
-  friend class TimerContext;
+  friend class SpinTimerContext;
 
 public:
   /**
@@ -148,38 +148,38 @@ public:
    * @param isRecurring Operation mode, true: recurring, false: non-recurring, default: false
    * @param timeMillis Timer interval/timeout time [ms], >0: timer starts automatically after creation, 0: timer remains stopped after creation (timer will expire as soon as possible when started with startTimer()), default: 0
    */
-  Timer(TimerAdapter* adapter = 0, bool isRecurring = false, unsigned long timeMillis = 0);
+  SpinTimer(SpinTimerAdapter* adapter = 0, bool isRecurring = false, unsigned long timeMillis = 0);
 
   /**
    * Timer destructor.
    * Will detach itself from TimerContext.
    */
-  virtual ~Timer();
+  virtual ~SpinTimer();
 
   /**
    * Attach specific TimerAdapter, acts as dependency injection. @see TimerAdapter interface.
    * @param adapter Specific TimerAdapter
    */
-  void attachAdapter(TimerAdapter* adapter);
+  void attachAdapter(SpinTimerAdapter* adapter);
 
   /**
    * Timer Adapter accessor method.
    * @return TimerAdapter object pointer or 0 if no adapter is attached.
    */
-  TimerAdapter* adapter();
+  SpinTimerAdapter* adapter();
 
 protected:
   /**
    * Get next Timer object pointer out of the linked list containing timers.
    * @return Timer object pointer or 0 if current object is the trailing list element.
    */
-  Timer* next();
+  SpinTimer* next();
 
   /**
    * Set next Timer object of the linked list containing timers.
    * @param timer Timer object pointer to be set as the next element of the list.
    */
-  void setNext(Timer* timer);
+  void setNext(SpinTimer* timer);
 
 public:
   /**
@@ -254,12 +254,12 @@ private:
   unsigned long m_triggerTimeMillis; ///
   unsigned long m_triggerTimeMillisUpperLimit;
   unsigned long m_delayMillis;
-  TimerAdapter* m_adapter;
-  Timer* m_next;
+  SpinTimerAdapter* m_adapter;
+  SpinTimer* m_next;
 
 private: // forbidden default functions
-  Timer& operator = (const Timer& src); // assignment operator
-  Timer(const Timer& src);              // copy constructor
+  SpinTimer& operator = (const SpinTimer& src); // assignment operator
+  SpinTimer(const SpinTimer& src);              // copy constructor
 };
 
-#endif /* TIMER_H_ */
+#endif /* SPINTIMER_H_ */
