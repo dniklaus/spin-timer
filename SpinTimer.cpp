@@ -36,6 +36,7 @@ SpinTimer::SpinTimer(SpinTimerAdapter* adapter, bool isRecurring, unsigned long 
 : m_isRunning(false)
 , m_isRecurring(isRecurring)
 , m_isExpiredFlag(false)
+, m_willOverflow(false)
 , m_currentTimeMillis(0)
 , m_triggerTimeMillis(0)
 , m_triggerTimeMillisUpperLimit(ULONG_MAX)
@@ -119,7 +120,8 @@ void SpinTimer::startTimer()
 void SpinTimer::startInterval()
 {
   unsigned long deltaTime = ULONG_MAX - m_currentTimeMillis;
-  if (deltaTime < m_delayMillis)
+  m_willOverflow = (deltaTime < m_delayMillis);
+  if (m_willOverflow)
   {
     // overflow will occur
     m_triggerTimeMillis = m_delayMillis - deltaTime - 1;
@@ -127,33 +129,47 @@ void SpinTimer::startInterval()
   }
   else
   {
-    m_triggerTimeMillis = m_currentTimeMillis + m_delayMillis - 1;
-    m_triggerTimeMillisUpperLimit = ULONG_MAX;
+    m_triggerTimeMillis = m_currentTimeMillis + m_delayMillis;
+    m_triggerTimeMillisUpperLimit = ULONG_MAX - deltaTime;
   }
 }
 
 void SpinTimer::internalTick()
 {
+  bool intervalIsOver = false;
+
   m_currentTimeMillis = UptimeInfo::Instance()->tMillis();
 
   // check if interval is over as long as the timer shall be running
-  if (m_isRunning && (m_triggerTimeMillis < m_currentTimeMillis) && (m_currentTimeMillis < m_triggerTimeMillisUpperLimit))
+  if (m_isRunning)
   {
-    // interval is over
-    if (m_isRecurring)
+    if (m_willOverflow)
     {
-      // start next interval
-      startInterval();
+      intervalIsOver = ((m_triggerTimeMillis <= m_currentTimeMillis) && (m_currentTimeMillis < m_triggerTimeMillisUpperLimit));
     }
     else
     {
-      m_isRunning = false;
+      intervalIsOver = ((m_triggerTimeMillis <= m_currentTimeMillis) || (m_currentTimeMillis < m_triggerTimeMillisUpperLimit));
     }
-
-    m_isExpiredFlag = true;
-    if (0 != m_adapter)
+    
+    if (intervalIsOver)
     {
-      m_adapter->timeExpired();
+      // interval is over
+      if (m_isRecurring)
+      {
+        // start next interval
+        startInterval();
+      }
+      else
+      {
+        m_isRunning = false;
+      }
+
+      m_isExpiredFlag = true;
+      if (0 != m_adapter)
+      {
+        m_adapter->timeExpired();
+      }
     }
   }
 }
