@@ -250,6 +250,7 @@ private:
   bool m_isRunning; /// Timer is running flag, true: timer is running, false: timer is stopped.
   bool m_isRecurring; /// Timer mode flag, true: timer will automatically restart after expiration.
   bool m_isExpiredFlag; /// Timer expiration flag.
+  bool m_willOverflow;  /// UptimeInfo::Instance()->tMillis() will overflow during new started interval.
   unsigned long m_currentTimeMillis; /// interval time measurement base, updated every internalTick(), called either by tick() or by isTimerExpired()
   unsigned long m_triggerTimeMillis; ///
   unsigned long m_triggerTimeMillisUpperLimit;
