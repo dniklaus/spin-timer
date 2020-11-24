@@ -1,5 +1,5 @@
 /*
- * Timer.cpp
+ * SpinTimer.cpp
  *
  *  Created on: 13.08.2013
  *      Author: niklausd
@@ -10,6 +10,9 @@
 #include <limits.h>
 #include "UptimeInfo.h"
 #include "SpinTimerContext.h"
+
+const bool SpinTimer::IS_NON_RECURRING = false;
+const bool SpinTimer::IS_RECURRING     = true;
 
 void scheduleTimers()
 {
@@ -22,15 +25,12 @@ void delayAndSchedule(unsigned long delayMillis)
   SpinTimer delayTimer(0, SpinTimer::IS_NON_RECURRING, (delayMillis));
 
   // wait until the timer expires
-  while (!delayTimer.isTimerExpired())
+  while (!delayTimer.isExpired())
   {
     // schedule the timer above and all the other timers, so they will still run in 'parallel'
     scheduleTimers();
   }
 }
-
-const bool SpinTimer::IS_NON_RECURRING = false;
-const bool SpinTimer::IS_RECURRING     = true;
 
 SpinTimer::SpinTimer(SpinTimerAdapter* adapter, bool isRecurring, unsigned long timeMillis)
 : m_isRunning(false)
@@ -48,7 +48,7 @@ SpinTimer::SpinTimer(SpinTimerAdapter* adapter, bool isRecurring, unsigned long 
 
   if (0 < m_delayMillis)
   {
-    startTimer();
+    start();
   }
 }
 
@@ -78,7 +78,7 @@ void SpinTimer::setNext(SpinTimer* timer)
 }
 
 
-bool SpinTimer::isTimerExpired()
+bool SpinTimer::isExpired()
 {
   internalTick();
   bool isExpired = m_isExpiredFlag;
@@ -96,13 +96,13 @@ void SpinTimer::tick()
   internalTick();
 }
 
-void SpinTimer::cancelTimer()
+void SpinTimer::cancel()
 {
   m_isRunning = false;
   m_isExpiredFlag = false;
 }
 
-void SpinTimer::startTimer(unsigned long timeMillis)
+void SpinTimer::start(unsigned long timeMillis)
 {
   m_isRunning = true;
   m_delayMillis = timeMillis;
@@ -110,7 +110,7 @@ void SpinTimer::startTimer(unsigned long timeMillis)
   startInterval();
 }
 
-void SpinTimer::startTimer()
+void SpinTimer::start()
 {
   m_isRunning = true;
   m_currentTimeMillis = UptimeInfo::Instance()->tMillis();

@@ -1,9 +1,9 @@
 SpinTimer	KEYWORD1
 adapter	KEYWORD2
 attachAdapter	KEYWORD2
-startTimer	KEYWORD2
-cancelTimer	KEYWORD2
-isTimerExpired	KEYWORD2
+start	KEYWORD2
+cancel	KEYWORD2
+isExpired	KEYWORD2
 isRunning	KEYWORD2
 tick	KEYWORD2
 

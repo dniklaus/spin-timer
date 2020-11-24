@@ -8,40 +8,11 @@
 #ifndef SPINTIMER_H_
 #define SPINTIMER_H_
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 /**
  * Schedule all timers, check their expiration states.
  * @see TimerContext::handleTick()
  */
 void scheduleTimers();
-
-/**
- * Schedule all timers, check their expiration states.
- * @see scheduleTimers()
- *
- * The yield() function prototype is declared in arduino.h, and an empty weak implementation is defined in arduino/core/hooks.c.
- * The linker will override the weak by this implementation.
- *
- * Call this function from large loops in order to keep the timers keep being scheduled all the time.
- * The arduino sleep() function calls this as well.
- */
-#if defined (WIRINGTIMER_YIELD_DEFINE)
-void yield()
-{
-  scheduleTimers();
-}
-#elif ! defined (WIRINGTIMER_SUPPRESS_WARNINGS) // intentionally undocumented (see below); define if the warning is getting annoying :) -- be careful using this for obvious reasons...
-// Let's provide a warning in keeping with Arduino's "Be kind to the end user" philosophy, because there won't be an
-// obvious indication of failure if someone skims the docs and mistakenly defines COOPMULTITASKING_NO_YIELD_DEFINE.
-#warning WIRINGTIMER_YIELD_DEFINE is not defined, so yield() will NOT call scheduleTimers(). Your code MUST explicitly call scheduleTimers(). See the documentation for details.
-#endif
-
-#ifdef __cplusplus
-} // extern "C"
-#endif
 
 /**
  * Delay the caller by the mentioned time while all timers are kept being scheduled in the meanwhile.
@@ -79,37 +50,37 @@ private:  // forbidden functions
  * Universal Timer.
  *
  * Features:
- * - intended use: encapsulate recurring and non-recurring timed actions with a non-busy wait approach for time spans in a range of 10 to thousands of milliseconds, such as:
- *   - debouncing push-button and switch signals
+ * - intended use: encapsulate recurring and non-recurring timed actions with a non-busy wait approach for time spans in a range of 0 to thousands of milliseconds, such as:
+ *   - debouncing push-button and switch signals (recommended interval: 50 ms)
  *   - blink some LEDs
  *   - schedule some sequences where time accuracy is not crucial
- *   - implements Arduino yield() function in order to keep the timers scheduling ongoing even while applications and drivers use the Arduino delay() function
  * - configurable to be either
  *   - recurring (timer automatically restarts after the interval) or
  *   - non-recurring (timer stops after timeout period is over)
  * - timer interval/timeout time configurable ([ms])
- * - automatically attaches to TimerContext's linked list of Timer objects. As long as the
- *   TimerContext::handleTick() will be called (use global functions yield() or scheduleTimers() to do so),
+ * - automatically attaches to SpinTimerContext's linked list of SpinTimer objects. As long as the
+ *   SpinTimerContext::handleTick() will be called (use global function scheduleTimers() to do so),
  *   this will periodically update the timers' states and thus perform the timers' expire evaluations
- * - based on millis() function (number of milliseconds since the Arduino board began
- *   running the current program), handles unsigned long int overflows correctly
- *   (occurring around every 50 hours)
+ * - based on system uptime (number of milliseconds since the system began running the current program,
+ *   i.e. Arduino: millis() function or STM32: HAL_GetTick() function),
+ * - handles system time overflows correctly (unsigned long int type, occurring around every 50 hours)
  *
  * Integration:
  *
- * (shown on the basis of a simple application toggling the Arduino board's built-in LED)
+ * (shown on the basis of a simple Arduino Framework application toggling the board's built-in LED)
  *
  * - Include
  *
- *       #include "Timer.h"
+ *       #include "SpinTimer.h"
+ *       #include "Arduino.h"
  *
  * - Timer interval constant definition
  *
  *       const unsigned int BLINK_TIME_MILLIS = 200;
  *
- * - specific TimerAdapter implementation, periodically toggling the built-in LED
+ * - specific SpinTimerAdapter implementation, periodically toggling the built-in LED
  *
- *       class BlinkTimerAdapter : public TimerAdapter
+ *       class BlinkTimerAdapter : public SpinTimerAdapter
  *       {
  *       public:
  *         void timeExpired()
@@ -120,19 +91,19 @@ private:  // forbidden functions
  *
  * - Setup: set LED pin to output; create recurring Timer, inject specific TimerAdapter
  *
- *       //The setup function is called once at startup of the sketch
+ *       // The setup function is called once at startup of the sketch
  *       void setup()
  *       {
  *         pinMode(LED_BUILTIN, OUTPUT);
- *         new Timer(new BlinkTimerAdapter(), Timer::IS_RECURRING, BLINK_TIME_MILLIS);
+ *         new SpinTimer(new BlinkTimerAdapter(), SpinTimer::IS_RECURRING, BLINK_TIME_MILLIS);
  *       }
  *
- * - Loop: call yield(), the Arduino scheduler function
+ * - Loop: call scheduleTimers()
  *
  *       // The loop function is called in an endless loop
  *       void loop()
  *       {
- *         yield();
+ *         scheduleTimers();
  *       }
  *
  * .
@@ -144,7 +115,7 @@ class SpinTimer
 public:
   /**
    * Timer constructor.
-   * @param adapter TimerAdapter, is able to emit a timer expired event to any specific listener, default: 0 (no event will be sent)
+   * @param adapter SpinTimerAdapter, is able to emit a timer expired event to any specific listener, default: 0 (no event will be sent)
    * @param isRecurring Operation mode, true: recurring, false: non-recurring, default: false
    * @param timeMillis Timer interval/timeout time [ms], >0: timer starts automatically after creation, 0: timer remains stopped after creation (timer will expire as soon as possible when started with startTimer()), default: 0
    */
@@ -157,27 +128,27 @@ public:
   virtual ~SpinTimer();
 
   /**
-   * Attach specific TimerAdapter, acts as dependency injection. @see TimerAdapter interface.
-   * @param adapter Specific TimerAdapter
+   * Attach specific SpinTimerAdapter, acts as dependency injection. @see SpinTimerAdapter interface.
+   * @param adapter Specific SpinTimerAdapter
    */
   void attachAdapter(SpinTimerAdapter* adapter);
 
   /**
-   * Timer Adapter accessor method.
-   * @return TimerAdapter object pointer or 0 if no adapter is attached.
+   * SpinTimer Adapter accessor method.
+   * @return SpinTimerAdapter object pointer or 0 if no adapter is attached.
    */
   SpinTimerAdapter* adapter();
 
 protected:
   /**
-   * Get next Timer object pointer out of the linked list containing timers.
-   * @return Timer object pointer or 0 if current object is the trailing list element.
+   * Get next SpinTimer object pointer out of the linked list containing timers.
+   * @return SpinTimer object pointer or 0 if current object is the trailing list element.
    */
   SpinTimer* next();
 
   /**
-   * Set next Timer object of the linked list containing timers.
-   * @param timer Timer object pointer to be set as the next element of the list.
+   * Set next SpinTimer object of the linked list containing timers.
+   * @param timer SpinTimer object pointer to be set as the next element of the list.
    */
   void setNext(SpinTimer* timer);
 
@@ -186,30 +157,30 @@ public:
    * Start or restart the timer with a specific time out or interval time.
    * @param timeMillis Time out or interval time to be set for the timer [ms]; 0 will make the timer expire as soon as possible.
    */
-  void startTimer(unsigned long timeMillis);
+  void start(unsigned long timeMillis);
 
   /**
    * Start or restart the timer.
-   * The timer will expire after the specified time set with the constructor or startTimer(timeMillis) before.
+   * The timer will expire after the specified time set with the constructor or start(timeMillis) before.
    */
-  void startTimer();
+  void start();
 
   /**
    * Cancel the timer and stop. No time expired event will be sent out after the specified time would have been elapsed.
-   * Subsequent isTimerExpired() queries will return false.
+   * Subsequent isExpired() queries will return false.
    */
-  void cancelTimer();
+  void cancel();
 
   /**
    * Poll method to get the timer expire status, recalculates whether the timer has expired before.
    * This method could be used in a pure polling mode, where tick() has not to get called
    * (by the TimerContext::handleTick() method), but also a mixed operation in combination with
    * calling tick() periodically is possible.
-   * Subsequent isTimerExpired() queries will return false after the first one returned true,
+   * Subsequent isExpired() queries will return false after the first one returned true,
    * as long as the time did not expire again in case of a recurring timer.
    * @return true if the timer has expired.
    */
-  bool isTimerExpired();
+  bool isExpired();
 
   /**
    * Indicates whether the timer is currently running.
@@ -251,8 +222,8 @@ private:
   bool m_isRecurring; /// Timer mode flag, true: timer will automatically restart after expiration.
   bool m_isExpiredFlag; /// Timer expiration flag.
   bool m_willOverflow;  /// UptimeInfo::Instance()->tMillis() will overflow during new started interval.
-  unsigned long m_currentTimeMillis; /// interval time measurement base, updated every internalTick(), called either by tick() or by isTimerExpired()
-  unsigned long m_triggerTimeMillis; ///
+  unsigned long m_currentTimeMillis; /// interval time measurement base, updated every internalTick(), called either by tick() or by isExpired()
+  unsigned long m_triggerTimeMillis;
   unsigned long m_triggerTimeMillisUpperLimit;
   unsigned long m_delayMillis;
   SpinTimerAdapter* m_adapter;
