@@ -1,37 +1,38 @@
 /*
- * Timer.cpp
+ * SpinTimer.cpp
  *
  *  Created on: 13.08.2013
  *      Author: niklausd
  */
 
+#include "SpinTimer.h"
+
 #include <limits.h>
 #include "UptimeInfo.h"
-#include "TimerContext.h"
-#include "Timer.h"
+#include "SpinTimerContext.h"
+
+const bool SpinTimer::IS_NON_RECURRING = false;
+const bool SpinTimer::IS_RECURRING     = true;
 
 void scheduleTimers()
 {
-  TimerContext::instance()->handleTick();
+  SpinTimerContext::instance()->handleTick();
 }
 
 void delayAndSchedule(unsigned long delayMillis)
 {
   // create a one-shot timer on the fly
-  Timer delayTimer(0, Timer::IS_NON_RECURRING, (delayMillis));
+  SpinTimer delayTimer(0, SpinTimer::IS_NON_RECURRING, (delayMillis));
 
   // wait until the timer expires
-  while (!delayTimer.isTimerExpired())
+  while (!delayTimer.isExpired())
   {
     // schedule the timer above and all the other timers, so they will still run in 'parallel'
     scheduleTimers();
   }
 }
 
-const bool Timer::IS_NON_RECURRING = false;
-const bool Timer::IS_RECURRING     = true;
-
-Timer::Timer(TimerAdapter* adapter, bool isRecurring, unsigned long timeMillis)
+SpinTimer::SpinTimer(SpinTimerAdapter* adapter, bool isRecurring, unsigned long timeMillis)
 : m_isRunning(false)
 , m_isRecurring(isRecurring)
 , m_isExpiredFlag(false)
@@ -43,41 +44,41 @@ Timer::Timer(TimerAdapter* adapter, bool isRecurring, unsigned long timeMillis)
 , m_adapter(adapter)
 , m_next(0)
 {
-  TimerContext::instance()->attach(this);
+  SpinTimerContext::instance()->attach(this);
 
   if (0 < m_delayMillis)
   {
-    startTimer();
+    start();
   }
 }
 
-Timer::~Timer()
+SpinTimer::~SpinTimer()
 {
-  TimerContext::instance()->detach(this);
+  SpinTimerContext::instance()->detach(this);
 }
 
-void Timer::attachAdapter(TimerAdapter* adapter)
+void SpinTimer::attachAdapter(SpinTimerAdapter* adapter)
 {
   m_adapter = adapter;
 }
 
-TimerAdapter* Timer::adapter()
+SpinTimerAdapter* SpinTimer::adapter()
 {
   return m_adapter;
 }
 
-Timer* Timer::next()
+SpinTimer* SpinTimer::next()
 {
   return m_next;
 }
 
-void Timer::setNext(Timer* timer)
+void SpinTimer::setNext(SpinTimer* timer)
 {
   m_next = timer;
 }
 
 
-bool Timer::isTimerExpired()
+bool SpinTimer::isExpired()
 {
   internalTick();
   bool isExpired = m_isExpiredFlag;
@@ -85,23 +86,23 @@ bool Timer::isTimerExpired()
   return isExpired;
 }
 
-bool Timer::isRunning()
+bool SpinTimer::isRunning()
 {
   return m_isRunning;
 }
 
-void Timer::tick()
+void SpinTimer::tick()
 {
   internalTick();
 }
 
-void Timer::cancelTimer()
+void SpinTimer::cancel()
 {
   m_isRunning = false;
   m_isExpiredFlag = false;
 }
 
-void Timer::startTimer(unsigned long timeMillis)
+void SpinTimer::start(unsigned long timeMillis)
 {
   m_isRunning = true;
   m_delayMillis = timeMillis;
@@ -109,14 +110,14 @@ void Timer::startTimer(unsigned long timeMillis)
   startInterval();
 }
 
-void Timer::startTimer()
+void SpinTimer::start()
 {
   m_isRunning = true;
   m_currentTimeMillis = UptimeInfo::Instance()->tMillis();
   startInterval();
 }
 
-void Timer::startInterval()
+void SpinTimer::startInterval()
 {
   unsigned long deltaTime = ULONG_MAX - m_currentTimeMillis;
   m_willOverflow = (deltaTime < m_delayMillis);
@@ -133,7 +134,7 @@ void Timer::startInterval()
   }
 }
 
-void Timer::internalTick()
+void SpinTimer::internalTick()
 {
   bool intervalIsOver = false;
 

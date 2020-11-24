@@ -1,16 +1,16 @@
-Timer	KEYWORD1
+SpinTimer	KEYWORD1
 adapter	KEYWORD2
 attachAdapter	KEYWORD2
-startTimer	KEYWORD2
-cancelTimer	KEYWORD2
-isTimerExpired	KEYWORD2
+start	KEYWORD2
+cancel	KEYWORD2
+isExpired	KEYWORD2
 isRunning	KEYWORD2
 tick	KEYWORD2
 
-TimerAdapter	KEYWORD1
+SpinTimerAdapter	KEYWORD1
 timeExpired	KEYWORD2
 
-TimerContext	KEYWORD1
+SpinTimerContext	KEYWORD1
 instance	KEYWORD2
 handleTick	KEYWORD2
 

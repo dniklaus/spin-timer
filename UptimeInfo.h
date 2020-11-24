@@ -33,8 +33,8 @@ private:  // forbidden functions
 
 
 /**
- * Helper class to use the appropriate time base depending on platfrom.
- * Supported platforms:
+ * Helper class to use the appropriate time base depending on framework.
+ * Supported default frameworks:
  * - Arduino (AVR and SAM)
  * - POSIX
  */
