@@ -91,6 +91,11 @@ bool SpinTimer::isRunning()
   return m_isRunning;
 }
 
+unsigned long SpinTimer::getInterval() const
+{
+  return m_delayMillis;
+}
+
 void SpinTimer::tick()
 {
   internalTick();
