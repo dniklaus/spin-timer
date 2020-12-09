@@ -43,5 +43,6 @@ endif()
 
 # Now simply link against gtest or gtest_main as needed. Eg
 add_executable(spin-timer-test test/SpinTimerTest.cpp)
-target_link_libraries(spin-timer-test gtest_main)
+target_include_directories(spin-timer-test PUBLIC . )
+target_link_libraries(spin-timer-test gtest_main ${PROJECT_NAME})
 # add_test(NAME spin-timer-test COMMAND example)
