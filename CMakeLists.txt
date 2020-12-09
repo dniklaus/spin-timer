@@ -43,5 +43,5 @@ endif()
 
 # Now simply link against gtest or gtest_main as needed. Eg
 add_executable(spin-timer-test test/SpinTimerTest.cpp)
-target_link_libraries(spintimertest gtest_main)
-add_test(NAME example_test COMMAND example)
+target_link_libraries(spin-timer-test gtest_main)
+# add_test(NAME spin-timer-test COMMAND example)
