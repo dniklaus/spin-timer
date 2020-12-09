@@ -137,14 +137,14 @@ public:
    * SpinTimer Action accessor method.
    * @return SpinTimerAction object pointer or 0 if no action is attached.
    */
-  SpinTimerAction* action();
+  SpinTimerAction* action() const;
 
 protected:
   /**
    * Get next SpinTimer object pointer out of the linked list containing timers.
    * @return SpinTimer object pointer or 0 if current object is the trailing list element.
    */
-  SpinTimer* next();
+  SpinTimer* next() const;
 
   /**
    * Set next SpinTimer object of the linked list containing timers.
@@ -186,7 +186,7 @@ public:
    * Indicates whether the timer is currently running.
    * @return true if timer is running.
    */
-  bool isRunning();
+  bool isRunning() const;
 
   /**
    * Returns the actual interval of the timer.

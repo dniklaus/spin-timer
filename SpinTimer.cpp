@@ -62,12 +62,12 @@ void SpinTimer::attachAction(SpinTimerAction* action)
   m_action = action;
 }
 
-SpinTimerAction* SpinTimer::action()
+SpinTimerAction* SpinTimer::action() const
 {
   return m_action;
 }
 
-SpinTimer* SpinTimer::next()
+SpinTimer* SpinTimer::next() const
 {
   return m_next;
 }
@@ -86,7 +86,7 @@ bool SpinTimer::isExpired()
   return isExpired;
 }
 
-bool SpinTimer::isRunning()
+bool SpinTimer::isRunning() const
 {
   return m_isRunning;
 }
