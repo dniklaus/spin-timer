@@ -32,7 +32,7 @@ void delayAndSchedule(unsigned long delayMillis)
   }
 }
 
-SpinTimer::SpinTimer(SpinTimerAdapter* adapter, bool isRecurring, unsigned long timeMillis)
+SpinTimer::SpinTimer(SpinTimerAction* action, bool isRecurring, unsigned long timeMillis)
 : m_isRunning(false)
 , m_isRecurring(isRecurring)
 , m_isExpiredFlag(false)
@@ -41,7 +41,7 @@ SpinTimer::SpinTimer(SpinTimerAdapter* adapter, bool isRecurring, unsigned long 
 , m_triggerTimeMillis(0)
 , m_triggerTimeMillisUpperLimit(ULONG_MAX)
 , m_delayMillis(timeMillis)
-, m_adapter(adapter)
+, m_action(action)
 , m_next(0)
 {
   SpinTimerContext::instance()->attach(this);
@@ -57,14 +57,14 @@ SpinTimer::~SpinTimer()
   SpinTimerContext::instance()->detach(this);
 }
 
-void SpinTimer::attachAdapter(SpinTimerAdapter* adapter)
+void SpinTimer::attachAction(SpinTimerAction* action)
 {
-  m_adapter = adapter;
+  m_action = action;
 }
 
-SpinTimerAdapter* SpinTimer::adapter()
+SpinTimerAction* SpinTimer::action()
 {
-  return m_adapter;
+  return m_action;
 }
 
 SpinTimer* SpinTimer::next()
@@ -166,9 +166,9 @@ void SpinTimer::internalTick()
       }
 
       m_isExpiredFlag = true;
-      if (0 != m_adapter)
+      if (0 != m_action)
       {
-        m_adapter->timeExpired();
+        m_action->timeExpired();
       }
     }
   }
