@@ -96,6 +96,11 @@ unsigned long SpinTimer::getInterval() const
   return m_delayMillis;
 }
 
+void SpinTimer::setIsRecurring(bool isRecurring) 
+{
+  m_isRecurring = isRecurring;
+}
+
 void SpinTimer::tick()
 {
   internalTick();

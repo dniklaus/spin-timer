@@ -194,6 +194,12 @@ public:
    */
   unsigned long getInterval() const;
 
+    /**
+   * Sets the operation mode
+   * @param isRecurring Operation mode, true: recurring, false: non-recurring
+   */
+  void setIsRecurring(bool isRecurring);
+
   /**
    * Kick the Timer.
    * Recalculates whether the timer has expired.
