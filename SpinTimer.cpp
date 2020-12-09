@@ -13,6 +13,8 @@
 
 const bool SpinTimer::IS_NON_RECURRING = false;
 const bool SpinTimer::IS_RECURRING     = true;
+const bool SpinTimer::IS_NON_AUTOSTART = false;
+const bool SpinTimer::IS_AUTOSTART     = true;
 
 void scheduleTimers()
 {
@@ -22,7 +24,7 @@ void scheduleTimers()
 void delayAndSchedule(unsigned long delayMillis)
 {
   // create a one-shot timer on the fly
-  SpinTimer delayTimer(0, SpinTimer::IS_NON_RECURRING, (delayMillis));
+  SpinTimer delayTimer((delayMillis), nullptr, SpinTimer::IS_NON_RECURRING, SpinTimer::IS_AUTOSTART);
 
   // wait until the timer expires
   while (!delayTimer.isExpired())
@@ -32,7 +34,7 @@ void delayAndSchedule(unsigned long delayMillis)
   }
 }
 
-SpinTimer::SpinTimer(SpinTimerAction* action, bool isRecurring, unsigned long timeMillis)
+SpinTimer::SpinTimer(unsigned long timeMillis, SpinTimerAction* action, bool isRecurring, bool isAutostart)
 : m_isRunning(false)
 , m_isRecurring(isRecurring)
 , m_isExpiredFlag(false)
@@ -46,7 +48,8 @@ SpinTimer::SpinTimer(SpinTimerAction* action, bool isRecurring, unsigned long ti
 {
   SpinTimerContext::instance()->attach(this);
 
-  if (0 < m_delayMillis)
+  if( (isAutostart == SpinTimer::IS_AUTOSTART) && 
+      (0 < m_delayMillis))
   {
     start();
   }

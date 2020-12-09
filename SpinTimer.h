@@ -115,11 +115,12 @@ class SpinTimer
 public:
   /**
    * Timer constructor.
+   * @param timeMillis Timer interval/timeout time [ms], >0: timer starts automatically after creation, 0: timer remains stopped after creation (timer will expire as soon as possible when started with startTimer())
    * @param action SpinTimerAction, is able to emit a timer expired event to any specific listener, default: 0 (no event will be sent)
    * @param isRecurring Operation mode, true: recurring, false: non-recurring, default: false
-   * @param timeMillis Timer interval/timeout time [ms], >0: timer starts automatically after creation, 0: timer remains stopped after creation (timer will expire as soon as possible when started with startTimer()), default: 0
+   * @param isAutostart Autostart mode, true: autostart enabled, false: autostart disabled, default: false
    */
-  SpinTimer(SpinTimerAction* action = 0, bool isRecurring = false, unsigned long timeMillis = 0);
+  SpinTimer(unsigned long timeMillis, SpinTimerAction* action = 0, bool isRecurring = false, bool isAutostart = false);
 
   /**
    * Timer destructor.
@@ -220,14 +221,24 @@ private:
 
 public:
   /**
-   * Constant for isRecurring parameter of the constructor (@see Timer()), to create a one shot timer.
+   * Constant for isRecurring parameter of the constructor (@see SpinTimer()), to create a one shot timer.
    */
   static const bool IS_NON_RECURRING;
 
   /**
-   * Constant for isRecurring parameter of the constructor (@see Timer()), to create a recurring timer.
+   * Constant for isRecurring parameter of the constructor (@see SpinTimer()), to create a recurring timer.
    */
   static const bool IS_RECURRING;
+
+  /**
+   * Constant for isAutostart parameter of the constructor (@see SpinTimer()), to create a timer which does not start.
+   */
+  static const bool IS_NON_AUTOSTART;
+
+    /**
+   * Constant for isAutostart parameter of the constructor (@see SpinTimer()), to create a timer which does start after creation.
+   */
+  static const bool IS_AUTOSTART;
 
 private:
   bool m_isRunning; /// Timer is running flag, true: timer is running, false: timer is stopped.
