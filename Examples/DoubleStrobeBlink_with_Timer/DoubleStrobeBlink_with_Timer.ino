@@ -1,5 +1,5 @@
 /*
- * Blink with Timer, special blink pattern: 2 short pulses, long pause, repeat.
+ * Blink with SpinTimer, special blink pattern: 2 short pulses, long pause, repeat.
  *
  * (C) 2020 Selim Niklaus
  *                   _____       __̣̣___                      _____       __̣̣___ 
@@ -9,7 +9,7 @@
  */
 
 #define WIRINGTIMER_SUPPRESS_WARNINGS 1
-#include <Timer.h>
+#include <SpinTimer.h>
 
 const unsigned int  BLINK_TIME_MILLIS = 200;
 const unsigned int  OFF_TIME_MILLIS = 1000;
@@ -23,7 +23,7 @@ void toggleLed(int ledPin)
   digitalWrite(ledPin, !isLedOn);
 }
 
-class BlinkTimerAdapter : public TimerAdapter
+class BlinkTimerAction : public TimerAction
 {
 private:
   unsigned int m_count;
@@ -31,7 +31,7 @@ private:
   Timer& m_offTimer;
 
 public:
-  BlinkTimerAdapter(Timer& blinkTimer, Timer& offTimer)
+  BlinkTimerAction(Timer& blinkTimer, Timer& offTimer)
   : m_count(0)
   , m_blinkTimer(blinkTimer)
   , m_offTimer(offTimer)
@@ -54,13 +54,13 @@ public:
   }
 };
 
-class OffTimerAdapter : public TimerAdapter
+class OffTimerAction : public TimerAction
 {
 private:  
   Timer& m_blinkTimer;
 
 public:
-  OffTimerAdapter(Timer& blinkTimer)
+  OffTimerAction(Timer& blinkTimer)
   : m_blinkTimer(blinkTimer)
   { }
  
@@ -75,8 +75,8 @@ public:
 void setup()
 {
   pinMode(LED_BUILTIN, OUTPUT);
-  blinkTimer.attachAdapter(new BlinkTimerAdapter(blinkTimer, offTimer));
-  offTimer.attachAdapter(new OffTimerAdapter(blinkTimer));
+  blinkTimer.attachAction(new BlinkTimerAction(blinkTimer, offTimer));
+  offTimer.attachAction(new OffTimerAction(blinkTimer));
   toggleLed(LED_BUILTIN);
 }
 
