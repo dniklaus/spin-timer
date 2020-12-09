@@ -189,6 +189,12 @@ public:
   bool isRunning();
 
   /**
+   * Returns the actual interval of the timer.
+   * @return Timer interval/timeout time [ms].
+   */
+  unsigned long getInterval() const;
+
+  /**
    * Kick the Timer.
    * Recalculates whether the timer has expired.
    */
