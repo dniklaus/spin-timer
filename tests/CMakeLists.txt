@@ -4,6 +4,9 @@ cmake_minimum_required(VERSION 3.16)
 set(PROJECT spin-timer-test)
 project(${PROJECT} LANGUAGES CXX)
 
+include(GoogleTest)
+enable_testing()
+
 # Download and unpack googletest at configure time
 configure_file(CMakeLists.txt.in googletest-download/CMakeLists.txt)
 execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
@@ -32,21 +35,23 @@ add_subdirectory(${CMAKE_CURRENT_BINARY_DIR}/googletest-src
 # Add the spin timer library to our build.
 add_subdirectory("../" ${CMAKE_CURRENT_BINARY_DIR}/SpinTimer)
 
+# Set names of needed build components
+set(TARGET ${PROJECT})
 set(SOURCES 
   "main.cpp"
   "Test_SpinTimer.cpp"  
 )
-
 set(INCLUDE_DIRECTORIES 
   "."
 )
 
-# add executable
-add_executable(${PROJECT} ${SOURCES})
-target_include_directories(${PROJECT} PUBLIC ${INCLUDE_DIRECTORIES})
-target_link_libraries(${PROJECT} 
+# Add and configure target
+add_executable(${TARGET} ${SOURCES})
+target_include_directories(${TARGET} PUBLIC ${INCLUDE_DIRECTORIES})
+target_link_libraries(${TARGET} 
   gtest
   gmock
   pthread 
   SpinTimer)
-add_test(NAME example_test COMMAND ${PROJECT})
+
+gtest_add_tests(TARGET ${TARGET})

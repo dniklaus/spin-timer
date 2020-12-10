@@ -3,7 +3,9 @@ spin-timer
 
 Universal Timer with 1 millisecond resolution, supporting OOP principles.
 
-
+## Status
+![build-test](https://github.com/dniklaus/spin-timer/workflows/build-test/badge.svg)
+![unit-tests](https://github.com/dniklaus/spin-timer/workflows/unit-tests/badge.svg)
 
 # Features
 
