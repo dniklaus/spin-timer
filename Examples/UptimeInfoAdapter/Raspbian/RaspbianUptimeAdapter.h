@@ -8,8 +8,8 @@
 #ifndef SRC_TWR_RASPBIANUPTIMEADAPTER_H_
 #define SRC_TWR_RASPBIANUPTIMEADAPTER_H_
 
-#include <timer/UptimeInfo.h>
 #include <chrono>
+#include "UptimeInfo.h"
 
 class RaspbianUptimeAdapter: public UptimeInfoAdapter
 {
