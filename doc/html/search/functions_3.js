@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['handletick',['handleTick',['../class_timer_context.html#a973a2dc57fe6f7f5f3565344b126122c',1,'TimerContext']]]
+  ['getinterval_140',['getInterval',['../class_spin_timer.html#a950f9e3e2631598351c124e9a1b1a09d',1,'SpinTimer']]]
 ];
