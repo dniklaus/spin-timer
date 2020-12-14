@@ -13,6 +13,8 @@
 
 const bool SpinTimer::IS_NON_RECURRING = false;
 const bool SpinTimer::IS_RECURRING     = true;
+const bool SpinTimer::IS_NON_AUTOSTART = false;
+const bool SpinTimer::IS_AUTOSTART     = true;
 
 void scheduleTimers()
 {
@@ -22,7 +24,7 @@ void scheduleTimers()
 void delayAndSchedule(unsigned long delayMillis)
 {
   // create a one-shot timer on the fly
-  SpinTimer delayTimer(0, SpinTimer::IS_NON_RECURRING, (delayMillis));
+  SpinTimer delayTimer((delayMillis), nullptr, SpinTimer::IS_NON_RECURRING, SpinTimer::IS_AUTOSTART);
 
   // wait until the timer expires
   while (!delayTimer.isExpired())
@@ -32,7 +34,7 @@ void delayAndSchedule(unsigned long delayMillis)
   }
 }
 
-SpinTimer::SpinTimer(SpinTimerAdapter* adapter, bool isRecurring, unsigned long timeMillis)
+SpinTimer::SpinTimer(unsigned long timeMillis, SpinTimerAction* action, bool isRecurring, bool isAutostart)
 : m_isRunning(false)
 , m_isRecurring(isRecurring)
 , m_isExpiredFlag(false)
@@ -41,12 +43,12 @@ SpinTimer::SpinTimer(SpinTimerAdapter* adapter, bool isRecurring, unsigned long 
 , m_triggerTimeMillis(0)
 , m_triggerTimeMillisUpperLimit(ULONG_MAX)
 , m_delayMillis(timeMillis)
-, m_adapter(adapter)
+, m_action(action)
 , m_next(0)
 {
   SpinTimerContext::instance()->attach(this);
 
-  if (0 < m_delayMillis)
+  if(isAutostart)
   {
     start();
   }
@@ -57,17 +59,17 @@ SpinTimer::~SpinTimer()
   SpinTimerContext::instance()->detach(this);
 }
 
-void SpinTimer::attachAdapter(SpinTimerAdapter* adapter)
+void SpinTimer::attachAction(SpinTimerAction* action)
 {
-  m_adapter = adapter;
+  m_action = action;
 }
 
-SpinTimerAdapter* SpinTimer::adapter()
+SpinTimerAction* SpinTimer::action() const
 {
-  return m_adapter;
+  return m_action;
 }
 
-SpinTimer* SpinTimer::next()
+SpinTimer* SpinTimer::next() const
 {
   return m_next;
 }
@@ -86,9 +88,19 @@ bool SpinTimer::isExpired()
   return isExpired;
 }
 
-bool SpinTimer::isRunning()
+bool SpinTimer::isRunning() const
 {
   return m_isRunning;
+}
+
+unsigned long SpinTimer::getInterval() const
+{
+  return m_delayMillis;
+}
+
+void SpinTimer::setIsRecurring(bool isRecurring) 
+{
+  m_isRecurring = isRecurring;
 }
 
 void SpinTimer::tick()
@@ -166,9 +178,9 @@ void SpinTimer::internalTick()
       }
 
       m_isExpiredFlag = true;
-      if (0 != m_adapter)
+      if (0 != m_action)
       {
-        m_adapter->timeExpired();
+        m_action->timeExpired();
       }
     }
   }

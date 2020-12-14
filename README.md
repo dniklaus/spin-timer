@@ -1,24 +1,26 @@
-spin-timer
-===================
+# SpinTimer
 
 Universal Timer with 1 millisecond resolution, supporting OOP principles.
 
+## Status
 
+![build-test](https://github.com/dniklaus/spin-timer/workflows/build-test/badge.svg)
+![unit-tests](https://github.com/dniklaus/spin-timer/workflows/unit-tests/badge.svg)
 
-# Features
+## Features
 
 * configurable to be either recurring (timer automatically restarts after the interval) or non-recurring (timer stops after timeout period is over)
 * timer interval/timeout time configurable
-* attaches automatically in the background to a Timer Context which periodically updates all registered timers' states and performs the timer expire evaluation for each registered timer
+* attaches automatically in the background to a SpinTimerContext which periodically updates all registered timers' states and performs the timer expire evaluation for each registered timer
 * based on system uptime (number of milliseconds since the system began running the current program, 
   i.e. Arduino: millis() function or STM32: HAL_GetTick() function);
   the source of the uptime info [ms] can be overridden by injecting a specific implementation when working with other frameworks than with Arduino
 * handles system time overflows correctly (unsigned long int type, occurring around every 50 hours)
 
 
-# Integration
+## Integration
 
-Here the integration of a Timer is shown with a simple Arduino Sketch toggling the Arduino board's built-in LED (blink):
+Here the integration of a SpinTimer is shown with a simple Arduino Sketch toggling the Arduino board's built-in LED (blink):
 
 * include the library
 
@@ -33,10 +35,10 @@ Here the integration of a Timer is shown with a simple Arduino Sketch toggling t
   const unsigned int BLINK_TIME_MILLIS = 200;
   ```
 
-* specific `SpinTimerAdapter` implementation, periodically toggling the Arduino built-in LED
+* specific `SpinTimerAction` implementation, periodically toggling the Arduino built-in LED
 
   ```C++
-  class BlinkTimerAdapter : public SpinTimerAdapter
+  class BlinkTimerAction : public SpinTimerAction
   {
   public:
     void timeExpired()
@@ -46,14 +48,14 @@ Here the integration of a Timer is shown with a simple Arduino Sketch toggling t
   };
   ```
 
-* setup: set LED pin to output; create recurring Timer, inject specific TimerAdapter
+* setup: set LED pin to output; create recurring Timer, inject specific SpinTimerAction
 
   ```c++
   //The setup function is called once at startup of the sketch
   void setup()
   {
     pinMode(LED_BUILTIN, OUTPUT);
-    new SpinTimer(new BlinkTimerAdapter(), Timer::IS_RECURRING, BLINK_TIME_MILLIS);
+    new SpinTimer(BLINK_TIME_MILLIS, new BlinkTimerAction(), SpinTimer::IS_RECURRING, SpinTimer::IS_AUTOSTART);
   }
   ```
 
@@ -68,9 +70,9 @@ Here the integration of a Timer is shown with a simple Arduino Sketch toggling t
   ```
 
 
-## Platform specific Uptime Info Adapter injection
+### Platform specific Uptime Info Adapter injection
 
-When using the Timer library with an Arduino Framework environment the uptime milliseconds counter info default implementation (`millis()` function) is automatically engaged and nothing has to be done.
+When using the SpinTimer library with an Arduino Framework environment the uptime milliseconds counter info default implementation (`millis()` function) is automatically engaged and nothing has to be done.
 
 If you are using other environments (i.e. when running in an STM32Cube system using STM32 HAL), a specific `UptimeInfoAdapter` implementation has to be used and injected. The following example shows the specific `STM32UptimeInfoAdapter`implementation of `UptimeInfoAdapter`as to be found in the Examples folder:
 
@@ -128,19 +130,22 @@ int main(void)
 
 
 
-# API
+## API
 
-This section describes the Timer library Application Programming Interface.
-## SpinTimer
-* *Constructor*: `SpinTimer(SpinTimerAdapter* adapter = 0, bool isRecurring = false, unsigned long timeMillis = 0)`
+This section describes the SpinTimer library Application Programming Interface.
+
+### SpinTimer
+
+* *Constructor*: `SpinTimer(unsigned long timeMillis, SpinTimerAction* action = 0, bool isRecurring = false, bool isAutostart = false)`
   Will attach itself to the `SpinTimerContext` (which normally keeps being hidden to the application).
-  * Parameter `adapter`: `SpinTimerAdapter` to be injected, is able to emit a timer expired event to any specific listener, default: 0 (no event will be sent)
+  * Parameter `timeMillis`: Timer interval/timeout time [ms], >0: timer starts automatically after creation, 0: timer remains stopped after creation (timer will expire as soon as possible when started with start()), default: 0
+  * Parameter `action`: `SpinTimerAction` to be injected, is able to emit a timer expired event to any specific listener, default: 0 (no event will be sent)
   * Parameter `isRecurring`: Operation mode, true: recurring, false: non-recurring, default: false
-  * Parameter `timeMillis`: Timer interval/timeout time [ms], >0: timer starts automatically after creation, 0: timer remains stopped after creation (timer will expire as soon as possible when started with startTimer()), default: 0
-* *Attach specific SpinTimerAdapter*, acts as dependency injection. `void attachAdapter(SpinTimerAdapter* adapter)`
-  * Parameter `adapter`: Specific `SpinTimerAdapter` implementation
-* *Timer Adapter get accessor* method. `SpinTimerAdapter* adapter()`
-   * Returns `SpinTimerAdapter`: Object pointer or 0 if no adapter is attached.
+  * Parameter `isAutostart`: Autostart mode, true: autostart enabled, false: autostart disabled, default: false
+* *Attach specific SpinTimerAction*, acts as dependency injection. `void attachAction(SpinTimerAction* action)`
+  * Parameter `action`: Specific `SpinTimerAction` implementation
+* *Timer Action get accessor* method. `SpinTimerAction* action()`
+   * Returns `SpinTimerAction`: Object pointer or 0 if no action is attached.
 * *Start or restart the timer* with a specific time out or interval time. `void start(unsigned long timeMillis)`
    * Parameter `timeMillis`: Time out or interval time to be set for the timer [ms]; 0 will make the timer expire as soon as possible.
 * *Start or restart the timer*. `void start()`
@@ -167,26 +172,46 @@ This section describes the Timer library Application Programming Interface.
   `static const bool IS_RECURRING = true`
 
 
-## SpinTimerAdapter
-* Adapter Interface, will notify `timeExpired()` event.
+### SpinTimerAction
+* Action Interface, will notify `timeExpired()` event.
 * Implementations derived from this interface can be injected into a SpinTimer object.
-  * the SpinTimer then will call out the specific adapter's `timeExpired()` method.
+  * the SpinTimer then will call out the specific action's `timeExpired()` method.
   Interface sending out a `timerExpired()` event.
-* *Time expired event*. To be implemented by specific `SpinTimerAdapter` class. `virtual void timeExpired() = 0`
+* *Time expired event*. To be implemented by specific `SpinTimerAction` class. `virtual void timeExpired() = 0`
 
-## UptimeInfoAdapter
+### UptimeInfoAdapter
 
 * Uptime Info Adapter Interface, will call out to `tMillis()` method to get current milliseconds counter value.
 * Implementations derived from this interface can be injected into the `UptimeInfo` singleton object.
 * Default implementation `DefaultUptimeInfoAdapter` for Arduino Framework environments is engaged automatically
 * Call out to get current milliseconds. To be implemented by specific `UptimeInfoAdapter` class. `virtual unsigned long tMillis() = 0`
 
+### Class diagram
 
+![SpinTimer Class Diagram](docs/pic/spintimer_class-diagram.bmp)
 
-# Notes
+[//]: # (\image html pic/spintimer_class-diagram.bmp)
+
+## Example Implementation
+
+This example shows how to use the SpinTimer library. The source code can be found in the Example folder.
+
+![Blink Example Class Diagram](docs/pic/spintimer_blink-example_class-diagram.bmp)
+
+[//]: # (\image html pic/spintimer_blink-example_class-diagram.bmp)
+
+![Blink Example Object Diagram](docs/pic/spintimer_blink-example_object-diagram.bmp)
+
+[//]: # (\image html pic/spintimer_blink-example_object-diagram.bmp)
+
+![Blink Example Sequence Diagram](docs/pic/spintimer_blink-example_sequence-diagram.bmp)
+
+[//]: # (\image html pic/spintimer_blink-example_sequence-diagram.bmp)
+
+## Notes
 This repository has been forked from  https://github.com/dniklaus/wiring-timer (Release 2.9.0) and with renamed Classes:
 * Timer -> SpinTimer
-* TimerAdapter -> SpinTimerAdapter
+* TimerAdapter -> SpinTimerAction
 * TimerContext -> SpinTimerContext
 
 The following timer methods have also been renamed:
@@ -194,4 +219,3 @@ The following timer methods have also been renamed:
 * cancelTimer() -> cancel()
 * startTimer(unsigned long timeMillis) -> start(unsigned long timeMillis)
 * startTimer() -> start()
-

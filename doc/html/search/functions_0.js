@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['adapter',['adapter',['../class_timer.html#a6f3ded33394fed1f309395006ffe2be0',1,'Timer']]],
-  ['attach',['attach',['../class_timer_context.html#a75b75d19594b042fa66dc6525ade155f',1,'TimerContext']]],
-  ['attachadapter',['attachAdapter',['../class_timer.html#a4883a450df4254c2e401093238fe0bfe',1,'Timer']]]
+  ['action_131',['action',['../class_spin_timer.html#a7ae511f64695119a0023bb20eac3ae08',1,'SpinTimer']]],
+  ['adapter_132',['adapter',['../class_uptime_info.html#a4cd0d90cb976472d1ef49448dbd0a189',1,'UptimeInfo']]],
+  ['add_5fsubdirectory_133',['add_subdirectory',['../_examples_2_simple_counter_2_c_make_lists_8txt.html#adfae24c0284c34f3cb67497ca7358e31',1,'CMakeLists.txt']]],
+  ['attach_134',['attach',['../class_spin_timer_context.html#a8f73f71ce061fa66215bf63eea9bd15d',1,'SpinTimerContext']]],
+  ['attachaction_135',['attachAction',['../class_spin_timer.html#a79d67595a6da3194e0d6d46b08ccb195',1,'SpinTimer']]]
 ];

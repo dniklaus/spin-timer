@@ -23,27 +23,27 @@ void scheduleTimers();
 void delayAndSchedule(unsigned long delayMillis);
 
 /**
- * Adapter Interface, will notify timeExpired() event.
+ * Action Interface, will notify timeExpired() event.
  * Implementations derived from this interface can be injected into a Timer object.
- * The Timer then will call out the specific adapter's timeExpired() method.
+ * The Timer then will call out the specific action's timeExpired() method.
  */
-class SpinTimerAdapter
+class SpinTimerAction
 {
 public:
   /**
-   * Time expired event. To be implemented by specific Timer Adapter class.
+   * Time expired event. To be implemented by specific Timer Action class.
    */
   virtual void timeExpired() = 0;
 
 protected:
-  SpinTimerAdapter() { }
+  SpinTimerAction() { }
 
 public:
-  virtual ~SpinTimerAdapter() { }
+  virtual ~SpinTimerAction() { }
 
 private:  // forbidden functions
-  SpinTimerAdapter(const SpinTimerAdapter& src);              // copy constructor
-  SpinTimerAdapter& operator = (const SpinTimerAdapter& src); // assignment operator
+  SpinTimerAction(const SpinTimerAction& src);              // copy constructor
+  SpinTimerAction& operator = (const SpinTimerAction& src); // assignment operator
 };
 
 /**
@@ -78,9 +78,9 @@ private:  // forbidden functions
  *
  *       const unsigned int BLINK_TIME_MILLIS = 200;
  *
- * - specific SpinTimerAdapter implementation, periodically toggling the built-in LED
+ * - specific SpinTimerAction implementation, periodically toggling the built-in LED
  *
- *       class BlinkTimerAdapter : public SpinTimerAdapter
+ *       class BlinkTimerAction : public SpinTimerAction
  *       {
  *       public:
  *         void timeExpired()
@@ -89,13 +89,13 @@ private:  // forbidden functions
  *         }
  *       };
  *
- * - Setup: set LED pin to output; create recurring Timer, inject specific TimerAdapter
+ * - Setup: set LED pin to output; create recurring Timer, inject specific TimerAction
  *
  *       // The setup function is called once at startup of the sketch
  *       void setup()
  *       {
  *         pinMode(LED_BUILTIN, OUTPUT);
- *         new SpinTimer(new BlinkTimerAdapter(), SpinTimer::IS_RECURRING, BLINK_TIME_MILLIS);
+ *         new SpinTimer(new BlinkTimerAction(), SpinTimer::IS_RECURRING, BLINK_TIME_MILLIS);
  *       }
  *
  * - Loop: call scheduleTimers()
@@ -115,11 +115,12 @@ class SpinTimer
 public:
   /**
    * Timer constructor.
-   * @param adapter SpinTimerAdapter, is able to emit a timer expired event to any specific listener, default: 0 (no event will be sent)
+   * @param timeMillis Timer interval/timeout time [ms], >0: timer starts automatically after creation, 0: timer remains stopped after creation (timer will expire as soon as possible when started with startTimer())
+   * @param action SpinTimerAction, is able to emit a timer expired event to any specific listener, default: 0 (no event will be sent)
    * @param isRecurring Operation mode, true: recurring, false: non-recurring, default: false
-   * @param timeMillis Timer interval/timeout time [ms], >0: timer starts automatically after creation, 0: timer remains stopped after creation (timer will expire as soon as possible when started with startTimer()), default: 0
+   * @param isAutostart Autostart mode, true: autostart enabled, false: autostart disabled, default: false
    */
-  SpinTimer(SpinTimerAdapter* adapter = 0, bool isRecurring = false, unsigned long timeMillis = 0);
+  SpinTimer(unsigned long timeMillis, SpinTimerAction* action = 0, bool isRecurring = false, bool isAutostart = false);
 
   /**
    * Timer destructor.
@@ -128,23 +129,23 @@ public:
   virtual ~SpinTimer();
 
   /**
-   * Attach specific SpinTimerAdapter, acts as dependency injection. @see SpinTimerAdapter interface.
-   * @param adapter Specific SpinTimerAdapter
+   * Attach specific SpinTimerAction, acts as dependency injection. @see SpinTimerAction interface.
+   * @param action Specific SpinTimerAction
    */
-  void attachAdapter(SpinTimerAdapter* adapter);
+  void attachAction(SpinTimerAction* action);
 
   /**
-   * SpinTimer Adapter accessor method.
-   * @return SpinTimerAdapter object pointer or 0 if no adapter is attached.
+   * SpinTimer Action accessor method.
+   * @return SpinTimerAction object pointer or 0 if no action is attached.
    */
-  SpinTimerAdapter* adapter();
+  SpinTimerAction* action() const;
 
 protected:
   /**
    * Get next SpinTimer object pointer out of the linked list containing timers.
    * @return SpinTimer object pointer or 0 if current object is the trailing list element.
    */
-  SpinTimer* next();
+  SpinTimer* next() const;
 
   /**
    * Set next SpinTimer object of the linked list containing timers.
@@ -186,7 +187,19 @@ public:
    * Indicates whether the timer is currently running.
    * @return true if timer is running.
    */
-  bool isRunning();
+  bool isRunning() const;
+
+  /**
+   * Returns the actual interval of the timer.
+   * @return Timer interval/timeout time [ms].
+   */
+  unsigned long getInterval() const;
+
+    /**
+   * Sets the operation mode
+   * @param isRecurring Operation mode, true: recurring, false: non-recurring
+   */
+  void setIsRecurring(bool isRecurring);
 
   /**
    * Kick the Timer.
@@ -208,14 +221,24 @@ private:
 
 public:
   /**
-   * Constant for isRecurring parameter of the constructor (@see Timer()), to create a one shot timer.
+   * Constant for isRecurring parameter of the constructor (@see SpinTimer()), to create a one shot timer.
    */
   static const bool IS_NON_RECURRING;
 
   /**
-   * Constant for isRecurring parameter of the constructor (@see Timer()), to create a recurring timer.
+   * Constant for isRecurring parameter of the constructor (@see SpinTimer()), to create a recurring timer.
    */
   static const bool IS_RECURRING;
+
+  /**
+   * Constant for isAutostart parameter of the constructor (@see SpinTimer()), to create a timer which does not start.
+   */
+  static const bool IS_NON_AUTOSTART;
+
+    /**
+   * Constant for isAutostart parameter of the constructor (@see SpinTimer()), to create a timer which does start after creation.
+   */
+  static const bool IS_AUTOSTART;
 
 private:
   bool m_isRunning; /// Timer is running flag, true: timer is running, false: timer is stopped.
@@ -226,7 +249,7 @@ private:
   unsigned long m_triggerTimeMillis;
   unsigned long m_triggerTimeMillisUpperLimit;
   unsigned long m_delayMillis;
-  SpinTimerAdapter* m_adapter;
+  SpinTimerAction* m_action;
   SpinTimer* m_next;
 
 private: // forbidden default functions
