@@ -1,4 +1,3 @@
-#define WIRINGTIMER_SUPPRESS_WARNINGS 1
 #include <SpinTimer.h>
 
 void toggleLed(int ledPin)
@@ -9,7 +8,7 @@ void toggleLed(int ledPin)
 
 const unsigned int  BLINK_TIME_MILLIS = 200;
 
-class BlinkTimerAction : public TimerAction
+class BlinkTimerAction : public SpinTimerAction
 {
 public:
   void timeExpired()
@@ -22,7 +21,7 @@ public:
 void setup()
 {
   pinMode(LED_BUILTIN, OUTPUT);
-  new Timer(new BlinkTimerAction(), Timer::IS_RECURRING, BLINK_TIME_MILLIS);
+  new SpinTimer(BLINK_TIME_MILLIS, new BlinkTimerAction(), SpinTimer::IS_RECURRING, SpinTimer::IS_AUTOSTART);
 }
 
 // The loop function is called in an endless loop

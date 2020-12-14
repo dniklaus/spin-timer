@@ -48,8 +48,7 @@ SpinTimer::SpinTimer(unsigned long timeMillis, SpinTimerAction* action, bool isR
 {
   SpinTimerContext::instance()->attach(this);
 
-  if( (isAutostart == SpinTimer::IS_AUTOSTART) && 
-      (0 < m_delayMillis))
+  if(isAutostart)
   {
     start();
   }

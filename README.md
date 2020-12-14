@@ -55,7 +55,7 @@ Here the integration of a SpinTimer is shown with a simple Arduino Sketch toggli
   void setup()
   {
     pinMode(LED_BUILTIN, OUTPUT);
-    new SpinTimer(BLINK_TIME_MILLIS, new BlinkTimerAction(), Timer::IS_RECURRING);
+    new SpinTimer(BLINK_TIME_MILLIS, new BlinkTimerAction(), SpinTimer::IS_RECURRING, SpinTimer::IS_AUTOSTART);
   }
   ```
 
@@ -211,7 +211,7 @@ This example shows how to use the SpinTimer library. The source code can be foun
 ## Notes
 This repository has been forked from  https://github.com/dniklaus/wiring-timer (Release 2.9.0) and with renamed Classes:
 * Timer -> SpinTimer
-* SpinTimerAdapter -> SpinTimerAction
+* TimerAdapter -> SpinTimerAction
 * TimerContext -> SpinTimerContext
 
 The following timer methods have also been renamed:
@@ -219,4 +219,3 @@ The following timer methods have also been renamed:
 * cancelTimer() -> cancel()
 * startTimer(unsigned long timeMillis) -> start(unsigned long timeMillis)
 * startTimer() -> start()
-
