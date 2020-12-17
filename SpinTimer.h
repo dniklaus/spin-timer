@@ -95,7 +95,7 @@ private:  // forbidden functions
  *       void setup()
  *       {
  *         pinMode(LED_BUILTIN, OUTPUT);
- *         new SpinTimer(new BlinkTimerAction(), SpinTimer::IS_RECURRING, BLINK_TIME_MILLIS);
+ *         new SpinTimer(BLINK_TIME_MILLIS, new BlinkTimerAction(), SpinTimer::IS_RECURRING, SpinTimer::IS_AUTOSTART);
  *       }
  *
  * - Loop: call scheduleTimers()
