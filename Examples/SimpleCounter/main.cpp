@@ -15,13 +15,17 @@
 
 int main(void)
 {
+    const unsigned long int spinTimer_1s_millis = 1000;
+    const unsigned long int spinTimer_2s_millis = 2000;
+    const unsigned long int spinTimer_5s_millis = 5000;
+
     uint32_t count1 = 0;
     uint32_t count2 = 0;
     uint32_t count3 = 0;
 
-    SpinTimer spinTimer1sec(1000, new MySpinTimerAction([&count1]() { count1++; }), true, true);
-    SpinTimer spinTimer2sec(2000, new MySpinTimerAction([&count2]() { count2++; }), true, true);
-    SpinTimer spinTimer5sec(5000, new MySpinTimerAction([&count3]() { count3++; }), true, true);
+    SpinTimer spinTimer1sec(spinTimer_1s_millis, new MySpinTimerAction([&count1]() { count1++; }), SpinTimer::IS_RECURRING, SpinTimer::IS_AUTOSTART);
+    SpinTimer spinTimer2sec(spinTimer_2s_millis, new MySpinTimerAction([&count2]() { count2++; }), SpinTimer::IS_RECURRING, SpinTimer::IS_AUTOSTART);
+    SpinTimer spinTimer5sec(spinTimer_5s_millis, new MySpinTimerAction([&count3]() { count3++; }), SpinTimer::IS_RECURRING, SpinTimer::IS_AUTOSTART);
 
     // Forever Loop
     for (;;)
