@@ -188,7 +188,7 @@ This section describes the SpinTimer library Application Programming Interface.
 
 ### Class diagram
 
-![SpinTimer Class Diagram](docs/pic/spintimer_class-diagram.bmp)
+![SpinTimer Class Diagram](doc/pic/spintimer_class-diagram.bmp)
 
 [//]: # (\image html pic/spintimer_class-diagram.bmp)
 
@@ -196,15 +196,15 @@ This section describes the SpinTimer library Application Programming Interface.
 
 This example shows how to use the SpinTimer library. The source code can be found in the Example folder.
 
-![Blink Example Class Diagram](docs/pic/spintimer_blink-example_class-diagram.bmp)
+![Blink Example Class Diagram](doc/pic/spintimer_blink-example_class-diagram.bmp)
 
 [//]: # (\image html pic/spintimer_blink-example_class-diagram.bmp)
 
-![Blink Example Object Diagram](docs/pic/spintimer_blink-example_object-diagram.bmp)
+![Blink Example Object Diagram](doc/pic/spintimer_blink-example_object-diagram.bmp)
 
 [//]: # (\image html pic/spintimer_blink-example_object-diagram.bmp)
 
-![Blink Example Sequence Diagram](docs/pic/spintimer_blink-example_sequence-diagram.bmp)
+![Blink Example Sequence Diagram](doc/pic/spintimer_blink-example_sequence-diagram.bmp)
 
 [//]: # (\image html pic/spintimer_blink-example_sequence-diagram.bmp)
 
