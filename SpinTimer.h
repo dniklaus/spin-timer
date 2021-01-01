@@ -115,7 +115,7 @@ class SpinTimer
 public:
   /**
    * Timer constructor.
-   * @param timeMillis Timer interval/timeout time [ms], >0: timer starts automatically after creation, 0: timer remains stopped after creation (timer will expire as soon as possible when started with startTimer())
+   * @param timeMillis Time out or interval time to be set for the timer [ms]; 0 will make the timer expire as soon as possible.
    * @param action SpinTimerAction, is able to emit a timer expired event to any specific listener, default: 0 (no event will be sent)
    * @param isRecurring Operation mode, true: recurring, false: non-recurring, default: false
    * @param isAutostart Autostart mode, true: autostart enabled, false: autostart disabled, default: false
@@ -190,7 +190,7 @@ public:
   bool isRunning() const;
 
   /**
-   * Returns the actual interval of the timer.
+   * Returns the current interval of the timer.
    * @return Timer interval/timeout time [ms].
    */
   unsigned long getInterval() const;
