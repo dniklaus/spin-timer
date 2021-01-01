@@ -3,7 +3,9 @@ action	KEYWORD2
 attachAction	KEYWORD2
 start	KEYWORD2
 cancel	KEYWORD2
+getInterval	KEYWORD2
 isExpired	KEYWORD2
+isRecurring	KEYWORD2
 isRunning	KEYWORD2
 tick	KEYWORD2
 
