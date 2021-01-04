@@ -10,7 +10,7 @@
 
 /**
  * Schedule all timers, check their expiration states.
- * @see TimerContext::handleTick()
+ * @see SpinTimerContext::handleTick()
  */
 void scheduleTimers();
 
