@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['raspbianuptimeadapter_100',['RaspbianUptimeAdapter',['../class_raspbian_uptime_adapter.html',1,'']]]
+  ['uptimeinfo_47',['UptimeInfo',['../class_uptime_info.html',1,'']]],
+  ['uptimeinfoadapter_48',['UptimeInfoAdapter',['../class_uptime_info_adapter.html',1,'']]]
 ];

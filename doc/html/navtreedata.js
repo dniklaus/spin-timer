@@ -23,29 +23,6 @@ for the JavaScript code in this file
 var NAVTREE =
 [
   [ "SpinTimer", "index.html", [
-    [ "Contributor Covenant Code of Conduct", "md__mnt_c__users_frda__workspace_spin-timer__c_o_d_e__o_f__c_o_n_d_u_c_t.html", [
-      [ "Our Pledge", "md__mnt_c__users_frda__workspace_spin-timer__c_o_d_e__o_f__c_o_n_d_u_c_t.html#autotoc_md1", null ],
-      [ "Our Standards", "md__mnt_c__users_frda__workspace_spin-timer__c_o_d_e__o_f__c_o_n_d_u_c_t.html#autotoc_md2", null ],
-      [ "Our Responsibilities", "md__mnt_c__users_frda__workspace_spin-timer__c_o_d_e__o_f__c_o_n_d_u_c_t.html#autotoc_md3", null ],
-      [ "Scope", "md__mnt_c__users_frda__workspace_spin-timer__c_o_d_e__o_f__c_o_n_d_u_c_t.html#autotoc_md4", null ],
-      [ "Enforcement", "md__mnt_c__users_frda__workspace_spin-timer__c_o_d_e__o_f__c_o_n_d_u_c_t.html#autotoc_md5", null ],
-      [ "Attribution", "md__mnt_c__users_frda__workspace_spin-timer__c_o_d_e__o_f__c_o_n_d_u_c_t.html#autotoc_md6", null ]
-    ] ],
-    [ "SpinTimer", "md__mnt_c__users_frda__workspace_spin-timer__r_e_a_d_m_e.html", [
-      [ "Status", "md__mnt_c__users_frda__workspace_spin-timer__r_e_a_d_m_e.html#autotoc_md8", null ],
-      [ "Features", "md__mnt_c__users_frda__workspace_spin-timer__r_e_a_d_m_e.html#autotoc_md9", null ],
-      [ "Integration", "md__mnt_c__users_frda__workspace_spin-timer__r_e_a_d_m_e.html#autotoc_md10", [
-        [ "Platform specific Uptime Info Adapter injection", "md__mnt_c__users_frda__workspace_spin-timer__r_e_a_d_m_e.html#autotoc_md11", null ]
-      ] ],
-      [ "API", "md__mnt_c__users_frda__workspace_spin-timer__r_e_a_d_m_e.html#autotoc_md12", [
-        [ "SpinTimer", "md__mnt_c__users_frda__workspace_spin-timer__r_e_a_d_m_e.html#autotoc_md13", null ],
-        [ "SpinTimerAction", "md__mnt_c__users_frda__workspace_spin-timer__r_e_a_d_m_e.html#autotoc_md14", null ],
-        [ "UptimeInfoAdapter", "md__mnt_c__users_frda__workspace_spin-timer__r_e_a_d_m_e.html#autotoc_md15", null ],
-        [ "Class diagram", "md__mnt_c__users_frda__workspace_spin-timer__r_e_a_d_m_e.html#autotoc_md16", null ]
-      ] ],
-      [ "Example Implementation", "md__mnt_c__users_frda__workspace_spin-timer__r_e_a_d_m_e.html#autotoc_md17", null ],
-      [ "Notes", "md__mnt_c__users_frda__workspace_spin-timer__r_e_a_d_m_e.html#autotoc_md18", null ]
-    ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
@@ -61,10 +38,7 @@ var NAVTREE =
       [ "File List", "files.html", "files_dup" ],
       [ "File Members", "globals.html", [
         [ "All", "globals.html", null ],
-        [ "Functions", "globals_func.html", null ],
-        [ "Variables", "globals_vars.html", null ],
-        [ "Typedefs", "globals_type.html", null ],
-        [ "Macros", "globals_defs.html", null ]
+        [ "Functions", "globals_func.html", null ]
       ] ]
     ] ]
   ] ]
@@ -72,7 +46,7 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"_c_make_c_x_x_compiler_id_8cpp.html"
+"_spin_timer_8cpp.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

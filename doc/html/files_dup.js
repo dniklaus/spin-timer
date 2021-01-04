@@ -1,8 +1,5 @@
 var files_dup =
 [
-    [ "build", "dir_4fef79e7177ba769987a8da36c892c5f.html", "dir_4fef79e7177ba769987a8da36c892c5f" ],
-    [ "Examples", "dir_03680f297d755c096b0a1ead13ee12b7.html", "dir_03680f297d755c096b0a1ead13ee12b7" ],
-    [ "tests", "dir_59425e443f801f1f2fd8bbe4959a3ccf.html", "dir_59425e443f801f1f2fd8bbe4959a3ccf" ],
     [ "SpinTimer.cpp", "_spin_timer_8cpp.html", "_spin_timer_8cpp" ],
     [ "SpinTimer.h", "_spin_timer_8h.html", "_spin_timer_8h" ],
     [ "SpinTimerContext.cpp", "_spin_timer_context_8cpp.html", null ],

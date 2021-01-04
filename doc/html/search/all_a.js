@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['raspbianuptimeadapter_50',['RaspbianUptimeAdapter',['../class_raspbian_uptime_adapter.html',1,'RaspbianUptimeAdapter'],['../class_raspbian_uptime_adapter.html#a8c487fdccaa4a25ae2a3cd5d05c7b0d8',1,'RaspbianUptimeAdapter::RaspbianUptimeAdapter()']]],
-  ['raspbianuptimeadapter_2eh_51',['RaspbianUptimeAdapter.h',['../_raspbian_uptime_adapter_8h.html',1,'']]],
-  ['readme_2emd_52',['README.md',['../_r_e_a_d_m_e_8md.html',1,'']]]
+  ['uptimeinfo_34',['UptimeInfo',['../class_uptime_info.html',1,'UptimeInfo'],['../class_uptime_info.html#a959cd9f3f342d22ebc64d51308b8d285',1,'UptimeInfo::UptimeInfo()']]],
+  ['uptimeinfo_2ecpp_35',['UptimeInfo.cpp',['../_uptime_info_8cpp.html',1,'']]],
+  ['uptimeinfo_2eh_36',['UptimeInfo.h',['../_uptime_info_8h.html',1,'']]],
+  ['uptimeinfoadapter_37',['UptimeInfoAdapter',['../class_uptime_info_adapter.html',1,'UptimeInfoAdapter'],['../class_uptime_info_adapter.html#a38f682884b67e40f4558b8a731551048',1,'UptimeInfoAdapter::UptimeInfoAdapter()']]]
 ];

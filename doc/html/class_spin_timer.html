@@ -185,7 +185,7 @@ public:
 void setup()
 {
   pinMode(LED_BUILTIN, OUTPUT);
-  new SpinTimer(new BlinkTimerAction(), SpinTimer::IS_RECURRING, BLINK_TIME_MILLIS);
+  new SpinTimer(BLINK_TIME_MILLIS, new BlinkTimerAction(), SpinTimer::IS_RECURRING, SpinTimer::IS_AUTOSTART);
 }
 </pre></li>
 <li>Loop: call <a class="el" href="_spin_timer_8cpp.html#a7f2364edc008cc2606f262114fece9f4">scheduleTimers()</a> <pre class="fragment">// The loop function is called in an endless loop
@@ -235,7 +235,7 @@ void loop()
 </div><div class="memdoc">
 <p>Timer constructor. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">timeMillis</td><td>Timer interval/timeout time [ms], &gt;0: timer starts automatically after creation, 0: timer remains stopped after creation (timer will expire as soon as possible when started with startTimer()) </td></tr>
+    <tr><td class="paramname">timeMillis</td><td>Time out or interval time to be set for the timer [ms]; 0 will make the timer expire as soon as possible. </td></tr>
     <tr><td class="paramname">action</td><td><a class="el" href="class_spin_timer_action.html">SpinTimerAction</a>, is able to emit a timer expired event to any specific listener, default: 0 (no event will be sent) </td></tr>
     <tr><td class="paramname">isRecurring</td><td>Operation mode, true: recurring, false: non-recurring, default: false </td></tr>
     <tr><td class="paramname">isAutostart</td><td>Autostart mode, true: autostart enabled, false: autostart disabled, default: false </td></tr>
@@ -347,7 +347,7 @@ void loop()
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Returns the actual interval of the timer. </p><dl class="section return"><dt>Returns</dt><dd>Timer interval/timeout time [ms]. </dd></dl>
+<p>Returns the current interval of the timer. </p><dl class="section return"><dt>Returns</dt><dd>Timer interval/timeout time [ms]. </dd></dl>
 
 </div>
 </div>
@@ -646,8 +646,8 @@ void loop()
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>/mnt/c/Users/frda/Workspace/spin-timer/<a class="el" href="_spin_timer_8h_source.html">SpinTimer.h</a></li>
-<li>/mnt/c/Users/frda/Workspace/spin-timer/<a class="el" href="_spin_timer_8cpp.html">SpinTimer.cpp</a></li>
+<li>/workspaces/spin-timer/<a class="el" href="_spin_timer_8h_source.html">SpinTimer.h</a></li>
+<li>/workspaces/spin-timer/<a class="el" href="_spin_timer_8cpp.html">SpinTimer.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
