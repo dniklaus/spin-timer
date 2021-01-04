@@ -1,0 +1,10 @@
+{
+    "deepcode.uploadApproved": true,
+    "cmake.configureOnOpen": true,
+    "cmake.buildDirectory": "${workspaceFolder}/build",
+    "cmake.sourceDirectory": "${workspaceFolder}",
+    "cmake.generator": "Ninja",
+    "cmake.loggingLevel":"info",
+    "cmake.parallelJobs": 4,
+    "cmake.saveBeforeBuild":true
+}
