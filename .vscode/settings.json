@@ -6,5 +6,6 @@
     "cmake.generator": "Ninja",
     "cmake.loggingLevel":"info",
     "cmake.parallelJobs": 4,
-    "cmake.saveBeforeBuild":true
+    "cmake.saveBeforeBuild":true,
+    "testMate.cpp.test.executables": "${workspaceFolder}/tests/build/*"
 }
