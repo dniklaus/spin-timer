@@ -7,5 +7,5 @@
     "cmake.loggingLevel":"info",
     "cmake.parallelJobs": 4,
     "cmake.saveBeforeBuild":true,
-    "testMate.cpp.test.executables": "${workspaceFolder}/tests/build/*"
+    "testMate.cpp.test.executables": "${workspaceFolder}/test/build/*"
 }
